@@ -12,7 +12,7 @@ test('CreateNewProject', async ({ page }) => {
     await login.navigateToLoginPage()
     await login.Login()
     //creates a new project
-    await project.createNewProject('Demo Project 27')
+    await project.createNewProject('Demo Project 30')
     //creates a new survey in the new project
     await survey.createNewSurvey('HR Survey')
 

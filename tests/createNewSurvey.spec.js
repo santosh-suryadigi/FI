@@ -13,9 +13,9 @@ test('CreateNewProject', async ({ page }) => {
     await login.navigateToLoginPage()
     await login.Login()
     //opens an existing project
-    await project.openExistingProject('Demo Project 25') 
+    await project.openExistingProject('Demo Project 27') 
     //creates a new survey in the new project
-    await survey.createNewSurvey('IT Survey')
+    await survey.createNewSurvey('Employee Satisfaction 2 Survey')
 
     
 });
