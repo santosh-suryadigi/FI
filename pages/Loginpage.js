@@ -20,7 +20,7 @@ export class Loginpage {
         await this.page.waitForSelector(this.usernameInput);
     }
 
-    async Login() {
+    async login() {
         await this.page.fill(this.usernameInput, this.username);
         await this.page.fill(this.passwordInput, this.password);
         await this.page.click(this.loginButton);

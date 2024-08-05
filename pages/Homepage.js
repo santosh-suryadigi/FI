@@ -18,12 +18,17 @@ export class Homepage{
         await this.page.getByRole('button', { name: 'Create Project' }).click();
         await this.page.waitForTimeout(1000)
         await expect(this.page.locator('#root')).toContainText(projectname);
-
     }
 
     async openExistingProject(projectname){
         await this.page.getByText(projectname).click();
         
+    }
+
+    async archiveProject(){
+        await this.page.locator("//tr[td[contains(.,'Demo 13')]]//td[6]//button[2]").click();
+        await this.page.getByPlaceholder('Enter project name').fill('Demo 13');
+        await this.page.getByRole('button', { name: 'Archive Project' }).click();
     }
 }
 

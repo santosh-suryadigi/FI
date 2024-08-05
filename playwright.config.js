@@ -28,7 +28,8 @@ module.exports = defineConfig({
       // baseURL: "https://bo.dev.feedbackinsightspulse.com/",
       // username: "santosh.v@surya-digital.com",
       // password: "Password@123",
-  
+      viewport: { width: 1920, height: 1080 }, // Set the viewport size
+
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
@@ -41,15 +42,15 @@ module.exports = defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
 
     /* Test against mobile viewports. */
     // {
