@@ -11,15 +11,15 @@ test.beforeEach('Login & navigate to Respondent page', async ({ page }) => {
     const home = new Homepage(page)
     const project = new Projectpage(page)
     //opens an existing project
-    await home.openExistingProject('Automation 2')
+    await home.openExistingProject('Automation 1')
     await project.navigateToRespondentTab()
 })
 
-test('Upload Respondent data for the first time', async ({ page }) => {
+test('Reupload respondent data ', async ({ page }) => {
     const respondent = new RespondentPage(page)
-    await respondent.validateRespondentPageFirsttime()
-    await respondent.downloadRespondentTemplateFile()
-    await respondent.uploadRespondentData('./testdata/Respondent_data.csv')
-});
+    await respondent.reuploadRespondentData('./testdata/Respondent_data.csv')
+})
+
+
 
 

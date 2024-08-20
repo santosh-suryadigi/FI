@@ -15,8 +15,8 @@ test('CreateNewSurvey', async ({ page }) => {
     const survey = new Projectpage(page)
     //opens an existing project
     await project.openExistingProject('Demo Project 28') 
-    //creates a new survey in the new project
-    await survey.createNewSurvey('Employee Satisfaction 3 Survey')
+    //creates a new survey in the existing project
+    await survey.createNewSurvey('Employee Satisfaction 5 Survey')
 });
 
 test('OpenSurvey', async ({page})=>{

@@ -16,7 +16,7 @@ test('CreateNewProject', async ({ page }) => {
     const project = new Homepage(page)
     const survey = new Projectpage(page)
     //creates a new project
-    await project.createNewProject('Demo Project 50')
+    await project.createNewProject('Demo Project 52')
     //creates a new survey in the new project
     await survey.createNewSurvey('HR Survey')  
 })

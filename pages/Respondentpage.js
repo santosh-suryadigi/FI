@@ -42,6 +42,7 @@ export class RespondentPage {
         await this.page.getByText('Email Address').click();
         await expect(this.page.getByRole('button', { name: 'Validate' })).toBeVisible();
         await this.page.getByRole('button', { name: 'Validate' }).click();
+        await this.page.getByRole('button', { name: 'Ignore and proceed' }).click();
         await expect(this.page.locator('.MuiTypography-root.MuiTypography-body1.css-1o7oer3')).toContainText('The respondent upload process has been initiated. The data will be updated shortly.');
         await this.page.getByRole('button', { name: 'Done' }).click();
         await expect(this.page.locator('#root')).toContainText('Data Processing in Progress');
@@ -50,7 +51,7 @@ export class RespondentPage {
         await expect(this.page.getByRole('button', { name: 'Refresh' })).toBeVisible();
 
     }
-    async verifyUploadedRespondentData() {
+    async verifyRespondentPageNotFirstyime() {
         await expect(this.page.getByRole('button', { name: 'Download CSV' })).toBeVisible();
         await expect(this.page.getByRole('button', { name: 'Re-Upload CSV' })).toBeVisible();
         await expect(this.page.getByRole('button', { name: 'Add Filter' })).toBeVisible();
@@ -101,4 +102,141 @@ export class RespondentPage {
 
     }
 
+    async deleteColumn(){
+        for (let i = 1; i <=98; i++) {
+            await this.page.getByRole('button', { name: 'Delete Column' }).click();
+            await this.page.getByPlaceholder('Select Column').click();            
+            await this.page.locator(`ul li[data-option-index='0']`).click();
+            await this.page.getByRole('button', { name: 'Delete Column' }).click();
+            await this.page.getByRole('button', { name: 'Done' }).click();
+        }
+    }
+
+    async validateDeleteColumnFlowUI(){        
+        await expect(this.page.getByRole('button', { name: 'Delete Column' })).toBeVisible();
+        await this.page.getByRole('button', { name: 'Delete Column' }).click();
+        await expect(this.page.getByRole('heading')).toContainText('Delete Column');
+        await this.page.getByText('This action will lead to the').click();
+        await expect(this.page.getByLabel('Delete Column')).toContainText('This action will lead to the deletion of the column, causing the loss of data present in the respective column.');
+        await expect(this.page.getByLabel('Delete Column').locator('label')).toContainText('Column *');
+        await expect(this.page.getByRole('button', { name: 'Cancel' })).toBeVisible();
+        await this.page.getByPlaceholder('Select Column').click();            
+        await this.page.locator(`ul li[data-option-index='0']`).click();
+        await expect(this.page.getByRole('button', { name: 'Delete Column' })).toBeVisible();
+        await this.page.getByRole('button', { name: 'Delete Column' }).click();
+        await expect(this.page.getByRole('button', { name: 'Done' })).toBeVisible();
+        await this.page.getByRole('button', { name: 'Done' }).click();
+            
+    }
+
+    async editRespondentDetails(){
+        for (let i = 1; i <= 15; i++) {
+        await this.page.locator(`(//button[@name='editButton'])[${i}]`).click();
+        await this.page.getByLabel('Edit Respondent').getByLabel('').nth(1).fill('sai 23');
+        await this.page.locator('#text-input-field').nth(1).fill('santosh 23');
+        await this.page.getByRole('button', { name: 'Save Changes' }).click();
+        await this.page.getByRole('button', { name: 'Done' }).click();
+        }
+    }
+
+    async assignSingleRespondent(){
+        for (let i = 2; i <= 6; i++) {
+        await this.page.locator("(//button[@name='editButton'])[9]").click();
+        await this.page.locator("//div[@role='combobox']").click();
+        await this.page.locator(`li:nth-child(${i})`).click();
+        await this.page.getByRole('button', { name: 'Save Changes' }).click();
+        await this.page.getByRole('button', { name: 'Done' }).click();
+        }
+    }
+    async assignMultiRespondents(){
+        await this.page.locator('td > .MuiStack-root').first().click();
+        for (let i = 2; i <= 6; i++) {
+            await this.page.locator(`tr:nth-child(${i}) > td > .MuiStack-root`).first().click();
+        }
+        await this.page.getByRole('button', { name: 'Assign to Survey' }).click();
+        await this.page.getByLabel('IT Survey', { exact: true }).check();
+        await this.page.getByRole('button', { name: 'Assign Survey' }).click();
+        await this.page.getByRole('button', { name: 'Done' }).click();
+    }
+    
+    async assignMultiAssignedRespondents(){
+        await this.page.locator('td > .MuiStack-root').first().click();
+        for (let i = 2; i <= 3; i++) {
+            await this.page.locator(`tr:nth-child(${i}) > td > .MuiStack-root`).first().click();
+        }
+        await this.page.getByRole('button', { name: 'Assign to Survey' }).click();
+        await this.page.getByLabel('IT Survey', { exact: true }).check();
+        await this.page.getByRole('button', { name: 'Assign Survey' }).click();
+        await expect(this.page.getByRole('heading')).toContainText('Respondents Already Assigned');
+        await expect(this.page.getByLabel('Respondents Already Assigned')).toContainText('Verify that the selected respondents are not currently assigned to any other survey. Please unassign them from any existing surveys before proceeding to assign them to the new survey.');
+        await expect(this.page.getByLabel('Respondents Already Assigned')).toContainText('Respondents Selected');
+        await expect(this.page.getByLabel('Respondents Already Assigned')).toContainText('Respondents Assigned');
+        await expect(this.page.getByLabel('Respondents Already Assigned')).toContainText('Respondents Not Assigned');
+        await expect(this.page.getByRole('button', { name: 'Close' })).toBeVisible();
+        await this.page.getByRole('button', { name: 'Close' }).click();
+    }
+
+    async assignAllRespondents(){
+        await this.page.locator('.MuiTableCell-root').first().click();
+        await this.page.getByRole('button', { name: 'Assign to Survey' }).click();
+        await this.page.getByLabel('Choose Survey').getByText('IT Survey', { exact: true }).click();
+        await this.page.getByRole('button', { name: 'Assign Survey' }).click();
+        await this.page.getByRole('button', { name: 'Done' }).click();
+        
+    }
+
+    async assignAlreadyAssignedRespondents(){
+        await this.page.locator('.MuiTableCell-root').first().click();
+        await this.page.getByRole('button', { name: 'Assign to Survey' }).click();
+        await this.page.getByLabel('Choose Survey').getByText('IT Survey', { exact: true }).click();
+        await this.page.getByRole('button', { name: 'Assign Survey' }).click();
+        await expect(this.page.getByRole('heading')).toContainText('Respondents Already Assigned');
+        await expect(this.page.getByLabel('Respondents Already Assigned')).toContainText('Verify that the selected respondents are not currently assigned to any other survey. Please unassign them from any existing surveys before proceeding to assign them to the new survey.');
+        await expect(this.page.getByLabel('Respondents Already Assigned')).toContainText('Respondents Selected');
+        await expect(this.page.getByLabel('Respondents Already Assigned')).toContainText('Respondents Assigned');
+        await expect(this.page.getByLabel('Respondents Already Assigned')).toContainText('Respondents Not Assigned');
+        await expect(this.page.getByRole('button', { name: 'Close' })).toBeVisible();
+        await this.page.getByRole('button', { name: 'Close' }).click();
+
+    }
+
+    async assignClosedSurvey(){
+        // await this.page.locator('td > .MuiStack-root').first().click();
+        for (let i = 2; i <= 4; i++) {
+            await this.page.locator(`tr:nth-child(${i}) > td > .MuiStack-root`).first().click();
+        }
+        await this.page.getByRole('button', { name: 'Assign to Survey' }).click();
+        await this.page.getByLabel('HR Survey', { exact: true }).check();
+        await this.page.getByRole('button', { name: 'Assign Survey' }).click();
+        await expect(this.page.getByLabel('Choose Survey')).toContainText('This survey is closed, a survey cannot be assigned to the selected respondent(s).');
+        await this.page.getByRole('button', { name: 'Close' }).click();
+
+    }
+
+    async assignSurveyWithNoQuestions(){
+        // await this.page.locator('td > .MuiStack-root').first().click();
+        for (let i = 2; i <= 4; i++) {
+            await this.page.locator(`tr:nth-child(${i}) > td > .MuiStack-root`).first().click();
+        }
+        await this.page.getByRole('button', { name: 'Assign to Survey' }).click();
+        await this.page.getByLabel('Employee satisfaction survey', { exact: true }).check();
+        await this.page.getByRole('button', { name: 'Assign Survey' }).click();
+        await expect(this.page.getByLabel('Choose Survey')).toContainText('This survey does not contain any questions, please add questions before assigning the survey.');
+        await this.page.getByRole('button', { name: 'Close' }).click();
+
+    }
+    async assignSurveyOfArchivedProject(){
+        // await this.page.locator('td > .MuiStack-root').first().click();
+        for (let i = 2; i <= 4; i++) {
+            await this.page.locator(`tr:nth-child(${i}) > td > .MuiStack-root`).first().click();
+        }
+        await this.page.getByRole('button', { name: 'Assign to Survey' }).click();
+        await this.page.getByLabel('IT Survey', { exact: true }).check();
+        await this.page.getByRole('button', { name: 'Assign Survey' }).click();
+        await expect(this.page.getByLabel('Choose Survey')).toContainText('This project has been archived, a survey cannot be assigned to the selected respondent(s).');
+        await this.page.getByRole('button', { name: 'Close' }).click();
+
+    }
+
+    
 }

@@ -30,6 +30,11 @@ export class Homepage{
         await this.page.getByPlaceholder('Enter project name').fill('Demo 13');
         await this.page.getByRole('button', { name: 'Archive Project' }).click();
     }
+
+    async openArchiveProjects(){
+        await this.page.getByRole('tab', { name: 'Archived Projects' }).click();
+
+    }
 }
 
     

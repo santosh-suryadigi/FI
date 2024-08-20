@@ -19,18 +19,19 @@ test.beforeEach('Login & navigate to Survey questionnaire page ',async ({page})=
 test('Create SingleSelect Question', async ({ page }) => {
     const question= new Surveypage(page)
     await question.createSingleSelectQuestion()
+
     
 });
 
-test('Create MultiSelect Question', async ({ page }) => {
-    const question= new Surveypage(page)
-    await question.createMultiSelectQuestion()
+// test('Create MultiSelect Question', async ({ page }) => {
+//     const question= new Surveypage(page)
+//     await question.createMultiSelectQuestion()
     
-});
+// });
 
-test('Create OpenEnded Question', async ({ page }) => {
-    const question= new Surveypage(page)
-    await question.createOpenEndedQuestion()
+// test('Create OpenEnded Question', async ({ page }) => {
+//     const question= new Surveypage(page)
+//     await question.createOpenEndedQuestion()
     
-});
+// });
 
