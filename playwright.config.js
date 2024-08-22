@@ -29,15 +29,14 @@ module.exports = defineConfig({
       // baseURL: "https://bo.dev.feedbackinsightspulse.com/",
       // username: "santosh.v@surya-digital.com",
       // password: "Password@123",
-      viewport: { width: 1920, height: 1080 }, // Set the viewport size
+      viewport: { width: 2000, height: 1580 }, // Set the viewport size
 
     /* Capture screenshot only on failure */
     screenshot: 'only-on-failure',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
-
-    
+  
   },
 
   /* Configure projects for major browsers */
