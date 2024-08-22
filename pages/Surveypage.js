@@ -49,363 +49,364 @@ export class Surveypage {
     await this.page.getByRole("button", { name: "Choose Preset" }).click();
 
     await this.page.route("*/**/survey/AddSurveyQuestion", async (route) => {
-        const json = {
-            "meta": {
-                "status": "OK"
+      const json = {
+        meta: {
+          status: "OK",
+        },
+        response: {
+          surveyDetailsAndQuestions: {
+            surveyStatusAndName: {
+              surveyStatus: {
+                case: "DRAFT",
+              },
+              surveyName: {
+                name: "HR Survey",
+              },
             },
-            "response": {
-                "surveyDetailsAndQuestions": {
-                    "surveyStatusAndName": {
-                        "surveyStatus": {
-                            "case": "DRAFT"
-                        },
-                        "surveyName": {
-                            "name": "HR Survey"
-                        }
-                    },
-                    "surveyQuestionDetails": [
-                        {
-                            "questionId": "037fefa4-f305-493e-acd2-0df8f8eceed6",
-                            "questionCode": {
-                                "code": "Q1"
-                            },
-                            "questionType": {
-                                "case": "SINGLE_CHOICE"
-                            },
-                            "question": {
-                                "text": "What role(s) do you see yourself playing in the company within the next five years?"
-                            },
-                            "order": {
-                                "order": 1
-                            },
-                            "isQuestionVisible": true,
-                            "isRuleApplied": true,
-                            "childQuestionIds": [],
-                            "isMandatory": false
-                        },
-                        {
-                            "questionId": "9ecbce94-54a6-4594-8c37-71b08487cf93",
-                            "questionCode": {
-                                "code": "Q2"
-                            },
-                            "questionType": {
-                                "case": "SINGLE_CHOICE"
-                            },
-                            "question": {
-                                "text": "What role(s) do you see yourself playing in the company within the next five years?"
-                            },
-                            "order": {
-                                "order": 2
-                            },
-                            "isQuestionVisible": true,
-                            "isRuleApplied": true,
-                            "childQuestionIds": [],
-                            "isMandatory": false
-                        },
-                        {
-                            "questionId": "c8ef335d-f078-4474-b341-f2e1e822a61b",
-                            "questionCode": {
-                                "code": "Q3"
-                            },
-                            "questionType": {
-                                "case": "SINGLE_CHOICE"
-                            },
-                            "question": {
-                                "text": "What role(s) do you see yourself playing in the company within the next five years?"
-                            },
-                            "order": {
-                                "order": 3
-                            },
-                            "isQuestionVisible": true,
-                            "isRuleApplied": true,
-                            "childQuestionIds": [],
-                            "isMandatory": false
-                        },
-                        {
-                            "questionId": "4979ab55-3ed0-4dd7-a579-6324f357e0d7",
-                            "questionCode": {
-                                "code": "Q4"
-                            },
-                            "questionType": {
-                                "case": "SINGLE_CHOICE"
-                            },
-                            "question": {
-                                "text": "What role(s) do you see yourself playing in the company within the next five years?"
-                            },
-                            "order": {
-                                "order": 4
-                            },
-                            "isQuestionVisible": true,
-                            "isRuleApplied": true,
-                            "childQuestionIds": [],
-                            "isMandatory": false
-                        },
-                        {
-                            "questionId": "838d9d19-76a3-4227-b781-c69eda66c7bd",
-                            "questionCode": {
-                                "code": "Q5"
-                            },
-                            "questionType": {
-                                "case": "SINGLE_CHOICE"
-                            },
-                            "question": {
-                                "text": "What role(s) do you see yourself playing in the company within the next five years?"
-                            },
-                            "order": {
-                                "order": 5
-                            },
-                            "isQuestionVisible": true,
-                            "isRuleApplied": true,
-                            "childQuestionIds": [],
-                            "isMandatory": false
-                        },
-                        {
-                            "questionId": "f54f28a2-4050-4774-aeb5-ebc23bd05e86",
-                            "questionCode": {
-                                "code": "Q6"
-                            },
-                            "questionType": {
-                                "case": "OPEN_ENDED"
-                            },
-                            "question": {
-                                "text": "What role(s) do you see yourself playing in the company within the next five years?"
-                            },
-                            "order": {
-                                "order": 6
-                            },
-                            "isQuestionVisible": true,
-                            "isRuleApplied": false,
-                            "childQuestionIds": [],
-                            "isMandatory": false
-                        },
-                        {
-                            "questionId": "f2ee72cf-012e-4a58-8fef-3c890235bd42",
-                            "questionCode": {
-                                "code": "Q7"
-                            },
-                            "questionType": {
-                                "case": "SINGLE_CHOICE"
-                            },
-                            "question": {
-                                "text": "Verify that the user can interact with all input elements by performing the following text."
-                            },
-                            "order": {
-                                "order": 7
-                            },
-                            "isQuestionVisible": true,
-                            "isRuleApplied": false,
-                            "childQuestionIds": [],
-                            "isMandatory": false
-                        }
-                    ]
+            surveyQuestionDetails: [
+              {
+                questionId: "037fefa4-f305-493e-acd2-0df8f8eceed6",
+                questionCode: {
+                  code: "Q1",
                 },
-                "questionId": "f2ee72cf-012e-4a58-8fef-3c890235bd42"
-            }
-        }
-        await route.fulfill({ json });
-      });
+                questionType: {
+                  case: "SINGLE_CHOICE",
+                },
+                question: {
+                  text: "What role(s) do you see yourself playing in the company within the next five years?",
+                },
+                order: {
+                  order: 1,
+                },
+                isQuestionVisible: true,
+                isRuleApplied: true,
+                childQuestionIds: [],
+                isMandatory: false,
+              },
+              {
+                questionId: "9ecbce94-54a6-4594-8c37-71b08487cf93",
+                questionCode: {
+                  code: "Q2",
+                },
+                questionType: {
+                  case: "SINGLE_CHOICE",
+                },
+                question: {
+                  text: "What role(s) do you see yourself playing in the company within the next five years?",
+                },
+                order: {
+                  order: 2,
+                },
+                isQuestionVisible: true,
+                isRuleApplied: true,
+                childQuestionIds: [],
+                isMandatory: false,
+              },
+              {
+                questionId: "c8ef335d-f078-4474-b341-f2e1e822a61b",
+                questionCode: {
+                  code: "Q3",
+                },
+                questionType: {
+                  case: "SINGLE_CHOICE",
+                },
+                question: {
+                  text: "What role(s) do you see yourself playing in the company within the next five years?",
+                },
+                order: {
+                  order: 3,
+                },
+                isQuestionVisible: true,
+                isRuleApplied: true,
+                childQuestionIds: [],
+                isMandatory: false,
+              },
+              {
+                questionId: "4979ab55-3ed0-4dd7-a579-6324f357e0d7",
+                questionCode: {
+                  code: "Q4",
+                },
+                questionType: {
+                  case: "SINGLE_CHOICE",
+                },
+                question: {
+                  text: "What role(s) do you see yourself playing in the company within the next five years?",
+                },
+                order: {
+                  order: 4,
+                },
+                isQuestionVisible: true,
+                isRuleApplied: true,
+                childQuestionIds: [],
+                isMandatory: false,
+              },
+              {
+                questionId: "838d9d19-76a3-4227-b781-c69eda66c7bd",
+                questionCode: {
+                  code: "Q5",
+                },
+                questionType: {
+                  case: "SINGLE_CHOICE",
+                },
+                question: {
+                  text: "What role(s) do you see yourself playing in the company within the next five years?",
+                },
+                order: {
+                  order: 5,
+                },
+                isQuestionVisible: true,
+                isRuleApplied: true,
+                childQuestionIds: [],
+                isMandatory: false,
+              },
+              {
+                questionId: "f54f28a2-4050-4774-aeb5-ebc23bd05e86",
+                questionCode: {
+                  code: "Q6",
+                },
+                questionType: {
+                  case: "OPEN_ENDED",
+                },
+                question: {
+                  text: "What role(s) do you see yourself playing in the company within the next five years?",
+                },
+                order: {
+                  order: 6,
+                },
+                isQuestionVisible: true,
+                isRuleApplied: false,
+                childQuestionIds: [],
+                isMandatory: false,
+              },
+              {
+                questionId: "f2ee72cf-012e-4a58-8fef-3c890235bd42",
+                questionCode: {
+                  code: "Q7",
+                },
+                questionType: {
+                  case: "SINGLE_CHOICE",
+                },
+                question: {
+                  text: "Verify that the user can interact with all input elements by performing the following text.",
+                },
+                order: {
+                  order: 7,
+                },
+                isQuestionVisible: true,
+                isRuleApplied: false,
+                childQuestionIds: [],
+                isMandatory: false,
+              },
+            ],
+          },
+          questionId: "f2ee72cf-012e-4a58-8fef-3c890235bd42",
+        },
+      };
+      await route.fulfill({ json });
+    });
 
-      await this.page.route("*/**/survey/GetQuestionDetails", async (route) => {
-        const json ={
-            "meta": {
-                "status": "OK"
+    await this.page.route("*/**/survey/GetQuestionDetails", async (route) => {
+      const json = {
+        meta: {
+          status: "OK",
+        },
+        response: {
+          questionDetails: {
+            basicQuestionDetails: {
+              questionCode: {
+                code: "Q8",
+              },
+              question: {
+                text: "What role(s) do you see yourself playing in the company within the next five years?",
+              },
+              isMandatory: false,
+              isVisibleByDefault: true,
             },
-            "response": {
-                "questionDetails": {
-                    "basicQuestionDetails": {
-                        "questionCode": {
-                            "code": "Q8"
-                        },
-                        "question": {
-                            "text": "What role(s) do you see yourself playing in the company within the next five years?"
-                        },
-                        "isMandatory": false,
-                        "isVisibleByDefault": true
-                    },
-                    "questionDetailsJSON": "{\"options\":[{\"code\":{\"code\":\"1\"},\"option\":{\"text\":\"Poor\"}},{\"code\":{\"code\":\"2\"},\"option\":{\"text\":\"Fair\"}},{\"code\":{\"code\":\"3\"},\"option\":{\"text\":\"Good\"}}],\"singleChoiceDisplayType\":{\"case\":\"RADIO_BUTTON\"},\"isChoiceResetAllowed\":true}",
-                    "jsonVersion": {
-                        "version": 1
-                    }
+            questionDetailsJSON:
+              '{"options":[{"code":{"code":"1"},"option":{"text":"Poor"}},{"code":{"code":"2"},"option":{"text":"Fair"}},{"code":{"code":"3"},"option":{"text":"Good"}}],"singleChoiceDisplayType":{"case":"RADIO_BUTTON"},"isChoiceResetAllowed":true}',
+            jsonVersion: {
+              version: 1,
+            },
+          },
+          surveyDetailsAndQuestions: {
+            surveyStatusAndName: {
+              surveyStatus: {
+                case: "DRAFT",
+              },
+              surveyName: {
+                name: "HR Survey",
+              },
+            },
+            surveyQuestionDetails: [
+              {
+                questionId: "037fefa4-f305-493e-acd2-0df8f8eceed6",
+                questionCode: {
+                  code: "Q1",
                 },
-                "surveyDetailsAndQuestions": {
-                    "surveyStatusAndName": {
-                        "surveyStatus": {
-                            "case": "DRAFT"
-                        },
-                        "surveyName": {
-                            "name": "HR Survey"
-                        }
-                    },
-                    "surveyQuestionDetails": [
-                        {
-                            "questionId": "037fefa4-f305-493e-acd2-0df8f8eceed6",
-                            "questionCode": {
-                                "code": "Q1"
-                            },
-                            "questionType": {
-                                "case": "SINGLE_CHOICE"
-                            },
-                            "question": {
-                                "text": "What role(s) do you see yourself playing in the company within the next five years?"
-                            },
-                            "order": {
-                                "order": 1
-                            },
-                            "isQuestionVisible": true,
-                            "isRuleApplied": true,
-                            "childQuestionIds": [],
-                            "isMandatory": false
-                        },
-                        {
-                            "questionId": "9ecbce94-54a6-4594-8c37-71b08487cf93",
-                            "questionCode": {
-                                "code": "Q2"
-                            },
-                            "questionType": {
-                                "case": "SINGLE_CHOICE"
-                            },
-                            "question": {
-                                "text": "What role(s) do you see yourself playing in the company within the next five years?"
-                            },
-                            "order": {
-                                "order": 2
-                            },
-                            "isQuestionVisible": true,
-                            "isRuleApplied": true,
-                            "childQuestionIds": [],
-                            "isMandatory": false
-                        },
-                        {
-                            "questionId": "c8ef335d-f078-4474-b341-f2e1e822a61b",
-                            "questionCode": {
-                                "code": "Q3"
-                            },
-                            "questionType": {
-                                "case": "SINGLE_CHOICE"
-                            },
-                            "question": {
-                                "text": "What role(s) do you see yourself playing in the company within the next five years?"
-                            },
-                            "order": {
-                                "order": 3
-                            },
-                            "isQuestionVisible": true,
-                            "isRuleApplied": true,
-                            "childQuestionIds": [],
-                            "isMandatory": false
-                        },
-                        {
-                            "questionId": "4979ab55-3ed0-4dd7-a579-6324f357e0d7",
-                            "questionCode": {
-                                "code": "Q4"
-                            },
-                            "questionType": {
-                                "case": "SINGLE_CHOICE"
-                            },
-                            "question": {
-                                "text": "What role(s) do you see yourself playing in the company within the next five years?"
-                            },
-                            "order": {
-                                "order": 4
-                            },
-                            "isQuestionVisible": true,
-                            "isRuleApplied": true,
-                            "childQuestionIds": [],
-                            "isMandatory": false
-                        },
-                        {
-                            "questionId": "838d9d19-76a3-4227-b781-c69eda66c7bd",
-                            "questionCode": {
-                                "code": "Q5"
-                            },
-                            "questionType": {
-                                "case": "SINGLE_CHOICE"
-                            },
-                            "question": {
-                                "text": "What role(s) do you see yourself playing in the company within the next five years?"
-                            },
-                            "order": {
-                                "order": 5
-                            },
-                            "isQuestionVisible": true,
-                            "isRuleApplied": true,
-                            "childQuestionIds": [],
-                            "isMandatory": false
-                        },
-                        {
-                            "questionId": "f54f28a2-4050-4774-aeb5-ebc23bd05e86",
-                            "questionCode": {
-                                "code": "Q6"
-                            },
-                            "questionType": {
-                                "case": "OPEN_ENDED"
-                            },
-                            "question": {
-                                "text": "What role(s) do you see yourself playing in the company within the next five years?"
-                            },
-                            "order": {
-                                "order": 6
-                            },
-                            "isQuestionVisible": true,
-                            "isRuleApplied": false,
-                            "childQuestionIds": [],
-                            "isMandatory": false
-                        },
-                        {
-                            "questionId": "f2ee72cf-012e-4a58-8fef-3c890235bd42",
-                            "questionCode": {
-                                "code": "Q7"
-                            },
-                            "questionType": {
-                                "case": "SINGLE_CHOICE"
-                            },
-                            "question": {
-                                "text": "Verify that the user can interact with all input elements by performing the following text."
-                            },
-                            "order": {
-                                "order": 7
-                            },
-                            "isQuestionVisible": true,
-                            "isRuleApplied": false,
-                            "childQuestionIds": [],
-                            "isMandatory": false
-                        },
-                        {
-                            "questionId": "2137aecf-ba9f-48bf-8243-9aeb1223f106",
-                            "questionCode": {
-                                "code": "Q8"
-                            },
-                            "questionType": {
-                                "case": "SINGLE_CHOICE"
-                            },
-                            "question": {
-                                "text": "What role(s) do you see yourself playing in the company within the next five years?"
-                            },
-                            "order": {
-                                "order": 8
-                            },
-                            "isQuestionVisible": true,
-                            "isRuleApplied": false,
-                            "childQuestionIds": [],
-                            "isMandatory": false
-                        }
-                    ]
-                }
-            }
-        }
-        await route.fulfill({ json });
-      });
+                questionType: {
+                  case: "SINGLE_CHOICE",
+                },
+                question: {
+                  text: "What role(s) do you see yourself playing in the company within the next five years?",
+                },
+                order: {
+                  order: 1,
+                },
+                isQuestionVisible: true,
+                isRuleApplied: true,
+                childQuestionIds: [],
+                isMandatory: false,
+              },
+              {
+                questionId: "9ecbce94-54a6-4594-8c37-71b08487cf93",
+                questionCode: {
+                  code: "Q2",
+                },
+                questionType: {
+                  case: "SINGLE_CHOICE",
+                },
+                question: {
+                  text: "What role(s) do you see yourself playing in the company within the next five years?",
+                },
+                order: {
+                  order: 2,
+                },
+                isQuestionVisible: true,
+                isRuleApplied: true,
+                childQuestionIds: [],
+                isMandatory: false,
+              },
+              {
+                questionId: "c8ef335d-f078-4474-b341-f2e1e822a61b",
+                questionCode: {
+                  code: "Q3",
+                },
+                questionType: {
+                  case: "SINGLE_CHOICE",
+                },
+                question: {
+                  text: "What role(s) do you see yourself playing in the company within the next five years?",
+                },
+                order: {
+                  order: 3,
+                },
+                isQuestionVisible: true,
+                isRuleApplied: true,
+                childQuestionIds: [],
+                isMandatory: false,
+              },
+              {
+                questionId: "4979ab55-3ed0-4dd7-a579-6324f357e0d7",
+                questionCode: {
+                  code: "Q4",
+                },
+                questionType: {
+                  case: "SINGLE_CHOICE",
+                },
+                question: {
+                  text: "What role(s) do you see yourself playing in the company within the next five years?",
+                },
+                order: {
+                  order: 4,
+                },
+                isQuestionVisible: true,
+                isRuleApplied: true,
+                childQuestionIds: [],
+                isMandatory: false,
+              },
+              {
+                questionId: "838d9d19-76a3-4227-b781-c69eda66c7bd",
+                questionCode: {
+                  code: "Q5",
+                },
+                questionType: {
+                  case: "SINGLE_CHOICE",
+                },
+                question: {
+                  text: "What role(s) do you see yourself playing in the company within the next five years?",
+                },
+                order: {
+                  order: 5,
+                },
+                isQuestionVisible: true,
+                isRuleApplied: true,
+                childQuestionIds: [],
+                isMandatory: false,
+              },
+              {
+                questionId: "f54f28a2-4050-4774-aeb5-ebc23bd05e86",
+                questionCode: {
+                  code: "Q6",
+                },
+                questionType: {
+                  case: "OPEN_ENDED",
+                },
+                question: {
+                  text: "What role(s) do you see yourself playing in the company within the next five years?",
+                },
+                order: {
+                  order: 6,
+                },
+                isQuestionVisible: true,
+                isRuleApplied: false,
+                childQuestionIds: [],
+                isMandatory: false,
+              },
+              {
+                questionId: "f2ee72cf-012e-4a58-8fef-3c890235bd42",
+                questionCode: {
+                  code: "Q7",
+                },
+                questionType: {
+                  case: "SINGLE_CHOICE",
+                },
+                question: {
+                  text: "Verify that the user can interact with all input elements by performing the following text.",
+                },
+                order: {
+                  order: 7,
+                },
+                isQuestionVisible: true,
+                isRuleApplied: false,
+                childQuestionIds: [],
+                isMandatory: false,
+              },
+              {
+                questionId: "2137aecf-ba9f-48bf-8243-9aeb1223f106",
+                questionCode: {
+                  code: "Q8",
+                },
+                questionType: {
+                  case: "SINGLE_CHOICE",
+                },
+                question: {
+                  text: "What role(s) do you see yourself playing in the company within the next five years?",
+                },
+                order: {
+                  order: 8,
+                },
+                isQuestionVisible: true,
+                isRuleApplied: false,
+                childQuestionIds: [],
+                isMandatory: false,
+              },
+            ],
+          },
+        },
+      };
+      await route.fulfill({ json });
+    });
 
     await this.page.getByRole("button", { name: "Save" }).click();
     await this.page.getByRole("button", { name: "Done" }).click();
   }
 
   async createMultiSelectQuestion() {
-    if (await this.page.isVisible(this.createQuestionnaireButton)) {
-      await this.page.locator(this.createQuestionnaireButton).click();
-    } else {
-      await this.page.click(this.editQuestionnaire);
-    }
+    // if (await this.page.isVisible(this.createQuestionnaireButton)) {
+    //   await this.page.locator(this.createQuestionnaireButton).click();
+    // } else {
+    //   await this.page.click(this.editQuestionnaire);
+    // }
 
     await this.page.getByRole("button", { name: "Add New Question" }).click();
     await this.page.getByRole("button", { name: "Multi Select" }).click();
@@ -437,11 +438,11 @@ export class Surveypage {
   }
 
   async createOpenEndedQuestion() {
-    if (await this.page.isVisible(this.createQuestionnaireButton)) {
-      await this.page.locator(this.createQuestionnaireButton).click();
-    } else {
-      await this.page.click(this.editQuestionnaire);
-    }
+    // if (await this.page.isVisible(this.createQuestionnaireButton)) {
+    //   await this.page.locator(this.createQuestionnaireButton).click();
+    // } else {
+    //   await this.page.click(this.editQuestionnaire);
+    // }
 
     await this.page.getByRole("button", { name: "Add New Question" }).click();
     await this.page.getByRole("button", { name: "Open Ended" }).click();

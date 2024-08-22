@@ -1,42 +1,27 @@
-const { test, expect } = require('@playwright/test')
-import { Loginpage } from '../pages/Loginpage';
-import { Projectpage } from '../pages/Projectpage';
-import { Homepage } from '../pages/Homepage';
-import { RespondentPage } from '../pages/Respondentpage';
+const { test} = require("@playwright/test");
+import { RespondentPage } from "../pages/Respondentpage";
+import { Utils } from "../pages/Utils";
 
-test.beforeEach('Login & navigate to Respondent page', async ({ page }) => {
-    const login = new Loginpage(page)
-    await login.navigateToLoginPage()
-    await login.login()
-      
-})
+// test("Error Codes-1", async ({ page }) => {
+//   const utils = new Utils();
+//   // Login and navigate to respondent page of a project
+//   utils.loginAndNavigateToRespondentTab("Demo Project 28", page);
+//   const respondent = new RespondentPage(page);
+//   // Assigns a single respondents who is already assigned
+//   await respondent.assignAlreadyAssignedRespondents();
+//   // Assigns multiple respondents who are already assigned
+//   await respondent.assignMultiAssignedRespondents();
+//   // Assigns respondents to a closed survey
+//   await respondent.assignClosedSurvey();
+//   // Assigns respondents to a survey with no questions
+//   await respondent.assignSurveyWithNoQuestions();
+// });
 
-test.setTimeout(60000)
-test('Error codes-1', async ({page}) => {
-    const home = new Homepage(page)
-    const project = new Projectpage(page)
-    const respondent = new RespondentPage(page)
-    //opens an existing project
-    await home.openExistingProject('Demo Project 28')
-    await project.navigateToRespondentTab()
-    await respondent.assignAlreadyAssignedRespondents()
-    await respondent.assignMultiAssignedRespondents()
-    await respondent.assignClosedSurvey()
-    await respondent.assignSurveyWithNoQuestions()
-    
+test("Error Codes-2", async ({ page }) => {
+  const utils = new Utils();
+  // Login and navigate to the respondent tab in an archived project
+  utils.loginAndNavigateToRespondentTabInArchiveProject("Demo Project 50 - clone",page);
+  const respondent = new RespondentPage(page);
+  // Assigns respondents to a survey that belongs to an archived project
+  await respondent.assignSurveyOfArchivedProject();
 });
-test('Error codes-2', async ({page}) => {
-    const home = new Homepage(page)
-    const project = new Projectpage(page)
-    const respondent = new RespondentPage(page)
-    //opens an existing project
-    await home.openArchiveProjects()
-    await home.openExistingProject('demo project 16')
-    await project.navigateToRespondentTab()
-    await respondent.assignSurveyOfArchivedProject()
-});
-
-
-
-
-

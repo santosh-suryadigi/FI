@@ -1,26 +1,16 @@
 const { test, expect } = require('@playwright/test')
-import { Loginpage } from '../pages/Loginpage';
-import { Projectpage } from '../pages/Projectpage';
-import { Homepage } from '../pages/Homepage';
+import { Utils } from '../pages/Utils';
 import { RespondentPage } from '../pages/Respondentpage';
 
-test.beforeEach('Login & navigate to Respondent page', async ({ page }) => {
-    const login = new Loginpage(page)
-    await login.navigateToLoginPage()
-    await login.login()
-    const home = new Homepage(page)
-    const project = new Projectpage(page)
-    //opens an existing project
-    await home.openExistingProject('Demo project 64')
-    await project.navigateToRespondentTab()
+test.beforeEach('Login & Navigate To Respondent Page', async ({ page }) => {
+    const utils = new Utils();
+    // Login and navigate to respondent page of a project
+    utils.loginAndNavigateToRespondentTab("Demo Project 64", page);
 })
 
 
-test('Download respondent data ', async ({ page }) => {
+test('Download The Respondent CSV File', async ({ page }) => {
     const respondent = new RespondentPage(page)
+    // Downloads the respondent csv file
     await respondent.downloadRespondentdata()
 })
-
-
-
-

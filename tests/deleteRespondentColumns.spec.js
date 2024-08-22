@@ -1,24 +1,18 @@
-const { test, expect } = require('@playwright/test')
-import { Loginpage } from '../pages/Loginpage';
-import { Projectpage } from '../pages/Projectpage';
-import { Homepage } from '../pages/Homepage';
-import { RespondentPage } from '../pages/Respondentpage';
+const { test, expect } = require("@playwright/test");
+import { Utils } from "../pages/Utils";
+import { RespondentPage } from "../pages/Respondentpage";
 
-test.beforeEach('Login & navigate to Respondent page', async ({ page }) => {
-    const login = new Loginpage(page)
-    await login.navigateToLoginPage()
-    await login.login()
-    const home = new Homepage(page)
-    const project = new Projectpage(page)
-    //opens an existing project
-    await home.openExistingProject('Automation 3')
-    await project.navigateToRespondentTab()
-})
+test.beforeEach("Login & Navigate To Respondent Page", async ({ page }) => {
+  const utils = new Utils();
+  // Login and navigate to respondent page of a project
+  utils.loginAndNavigateToRespondentTab("Automation 4", page);
+});
 
-test.setTimeout(600000)
-test('Delete Column', async ({ page }) => {
-    const respondent = new RespondentPage(page)
-    // deletes 99 columns one by one
-    await respondent.validateDeleteColumnFlowUI()
-    // await respondent.deleteColumn()
-})
+test.setTimeout(600000);
+test("Delete Column", async ({ page }) => {
+  const respondent = new RespondentPage(page);
+  // Validates the UI of the delete column flow
+  await respondent.validateDeleteColumnFlowUI();
+  // Deletes 98 columns one by one
+  await respondent.deleteColumn();
+});

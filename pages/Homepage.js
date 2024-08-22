@@ -26,7 +26,7 @@ export class Homepage{
     }
 
     async archiveProject(){
-        await this.page.locator("//tr[td[contains(.,'Demo 13')]]//td[6]//button[2]").click();
+        await this.page.locator("//tr[td[contains(.,'Demo 12')]]//td[6]//button[2]").click();
         await this.page.getByPlaceholder('Enter project name').fill('Demo 13');
         await this.page.getByRole('button', { name: 'Archive Project' }).click();
     }
@@ -36,6 +36,3 @@ export class Homepage{
 
     }
 }
-
-    
-

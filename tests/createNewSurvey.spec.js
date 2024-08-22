@@ -10,18 +10,20 @@ test.beforeEach('Login',async ({page})=>{
 
 })
 
-test('CreateNewSurvey', async ({ page }) => {
+test('Create A New Survey', async ({ page }) => {
     const project = new Homepage(page)
     const survey = new Projectpage(page)
-    //opens an existing project
-    await project.openExistingProject('Demo Project 28') 
-    //creates a new survey in the existing project
-    await survey.createNewSurvey('Employee Satisfaction 5 Survey')
+    // Opens an existing project
+    await project.openExistingProject('Demo 12') 
+    // Creates a new survey in the existing project
+    await survey.createNewSurvey('Employee Satisfaction 6 Survey')
 });
 
-test('OpenSurvey', async ({page})=>{
+test('Open an Existing Survey', async ({page})=>{
     const survey = new Projectpage(page)
     const project = new Homepage(page)
-    await project.openExistingProject('Demo Project 28') 
-    await survey.openSurvey('HR Survey')
+    // Opens an existing project
+    await project.openExistingProject('Demo 12') 
+    // Opens an existing survey
+    await survey.openSurvey('Employee Performance')
 })
