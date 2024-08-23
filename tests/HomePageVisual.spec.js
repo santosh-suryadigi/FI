@@ -1,7 +1,8 @@
 // Visual Testing
-import { test, expect } from "@playwright/test";
+import { test } from "@playwright/test";
 import { Loginpage } from "../pages/Loginpage";
-import { Homepage } from "../pages/Homepage";
+import { resetViewPort, setViewPort } from "./utils/viewPortScreenShotUtils";
+
 test("Example Test", async ({ page }) => {
   const login = new Loginpage(page);
   await login.navigateToLoginPage();
@@ -13,7 +14,9 @@ test("Example Test", async ({ page }) => {
 //   await home.openExistingProject('Demo Project 28')
   await page.waitForTimeout(3000)
 //   await expect(page).toHaveScreenshot("ProjectPage.png", {fullPage: true,});
-await page.locator("(//div[@class='MuiStack-root css-j7qwjs'])[2]").screenshot({ path: 'screenshot.png', fullPage: true });
+await setViewPort(page, ".css-13av0mz") 
+await page.screenshot({ path: 'screenshot.png', fullPage: true });
+await resetViewPort(page)
 });
 async function scrollFullPage(page) {
     await page.evaluate(async () => {
