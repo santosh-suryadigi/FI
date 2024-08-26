@@ -3,6 +3,8 @@ import { test, expect } from "@playwright/test";
 import { Loginpage } from "../pages/Loginpage";
 import { Homepage } from "../pages/Homepage";
 import { Projectpage } from "../pages/Projectpage";
+import { resetViewPort, setViewPort } from "./utils/viewPortScreenShotUtils";
+
 
 test("Example Test", async ({ page }) => {
   const login = new Loginpage(page);
@@ -21,5 +23,8 @@ test("Example Test", async ({ page }) => {
 
   await page.waitForTimeout(3000)
 //   await expect(page).toHaveScreenshot("ProjectPage.png", {fullPage: true,});
+// await expect(page).toHaveScreenshot('singleselect-fullpage.png',{fullPage: true,});
+await setViewPort(page, "div[class='MuiStack-root css-3j596c'] div[class='MuiStack-root css-o0o90z']") 
 await expect(page).toHaveScreenshot('singleselect-fullpage.png',{fullPage: true,});
+await resetViewPort(page)
 });
