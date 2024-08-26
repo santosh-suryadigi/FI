@@ -1,4 +1,4 @@
-const { test, expect } = require("@playwright/test");
+const { test } = require("@playwright/test");
 import { Loginpage } from "../pages/Loginpage";
 import { Homepage } from "../pages/Homepage";
 import { Projectpage } from "../pages/Projectpage";
@@ -17,9 +17,3 @@ test("Create A New Project", async ({ page }) => {
   // Creates a new survey in the new project
   await survey.createNewSurvey("HR Survey");
 });
-
-// test("Archive A Project", async ({ page }) => {
-//   const project = new Homepage(page);
-//   // Archives a project
-//   await project.archiveProject();
-// });

@@ -1,4 +1,4 @@
-const { test, expect } = require("@playwright/test");
+const { test } = require("@playwright/test");
 import { Loginpage } from "../pages/Loginpage";
 import { Projectpage } from "../pages/Projectpage";
 import { Homepage } from "../pages/Homepage";
@@ -20,9 +20,18 @@ test.beforeEach(
 
 test("Create 3 Question", async ({ page }) => {
   const question = new Surveypage(page);
+  // await question.createSingleSelectQuestion();
+  // await question.createMultiSelectQuestion();
+  // await question.createOpenEndedQuestion()
+  await question.createGridQuestion()
+
+});
+test("Create 4 Question", async ({ page }) => {
+  const question = new Surveypage(page);
   await question.createSingleSelectQuestion();
-  await question.createMultiSelectQuestion();
-  await question.createOpenEndedQuestion()
+  // await question.createMultiSelectQuestion();
+  // await question.createOpenEndedQuestion()
+  // await question.createGridQuestion()
 
 });
 

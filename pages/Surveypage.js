@@ -1,4 +1,4 @@
-const { test, expect } = require("@playwright/test");
+const { expect } = require("@playwright/test");
 
 export class Surveypage {
   constructor(page) {
@@ -13,8 +13,72 @@ export class Surveypage {
     } else {
       await this.page.click(this.editQuestionnaire);
     }
+    await expect(
+      this.page.getByRole("button", { name: "Add New Question" })
+    ).toBeVisible();
     await this.page.getByRole("button", { name: "Add New Question" }).click();
+    await expect(this.page.locator("//div[@role='dialog']")).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Single Select" })
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Multi Select" })
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Open Ended" })
+    ).toBeVisible();
+    await expect(this.page.getByRole("button", { name: "Grid" })).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Group" })
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Ranking" })
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Message" })
+    ).toBeVisible();
     await this.page.getByRole("button", { name: "Single Select" }).click();
+    await expect(this.page.locator("#root")).toContainText("Question");
+    await expect(this.page.locator("#root")).toContainText(
+      "Question Description"
+    );
+    await expect(
+      this.page
+        .locator(
+          "div:nth-child(2) > div > div > div > div:nth-child(2) > div > div > .MuiFormControl-root > .MuiInputBase-root"
+        )
+        .first()
+    ).toBeVisible();
+    await expect(this.page.getByRole("textbox").nth(2)).toBeVisible();
+    await expect(this.page.getByText("Choice Display Type")).toBeVisible();
+    await expect(this.page.getByText("Selection")).toBeVisible();
+    await expect(this.page.getByText("Slider", { exact: true })).toBeVisible();
+    await expect(this.page.getByText("Rating Scale")).toBeVisible();
+    await expect(this.page.getByText("Net Promoter Score™")).toBeVisible();
+    await expect(this.page.getByText("Choice Customisation")).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Choose Preset" })
+    ).toBeVisible();
+    await expect(this.page.getByPlaceholder("Enter code")).toBeVisible();
+    await expect(this.page.getByText("Question Attributes")).toBeVisible();
+    await expect(this.page.locator("#root")).toContainText(
+      "Indicate this question as mandatory to the respondent"
+    );
+    await expect(this.page.locator("#root")).toContainText(
+      "Make this question visible by default"
+    );
+    await expect(this.page.locator("#root")).toContainText(
+      "Allow the user to reset their choices"
+    );
+    await expect(
+      this.page.locator("(//input[@type='checkbox'])[1]")
+    ).not.toBeChecked();
+    await expect(
+      this.page.locator("(//input[@type='checkbox'])[2]")
+    ).toBeChecked();
+    await expect(
+      this.page.locator("(//input[@type='checkbox'])[3]")
+    ).toBeChecked();
     await this.page
       .getByPlaceholder("Enter question", { exact: true })
       .fill("Tell more about the company");
@@ -24,393 +88,112 @@ export class Surveypage {
     await this.page.getByRole("option", { name: "5" }).click();
     await this.page.click("//div[@id='Preset Type']");
     await this.page.getByRole("option", { name: "Willingness" }).click();
+    await expect(this.page
+      .getByRole("button", { name: "Choose Preset" }))
+      .toBeEnabled();
     await this.page.getByRole("button", { name: "Choose Preset" }).click();
+    await expect(
+      this.page.locator('button[name="addButton"]').first()
+    ).toBeVisible();
+    await expect(
+      this.page.locator('button[name="deleteButton"]').first()
+    ).toBeVisible();
+    await expect(
+      this.page.locator('button[name="addButton"]').nth(1)
+    ).toBeVisible();
+    await expect(
+      this.page.locator('button[name="deleteButton"]').nth(1)
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Reset", exact: true })
+    ).toBeVisible();
+    await expect(this.page.getByRole("button", { name: "Save" })).toBeVisible();
+    await expect(this.page.getByRole("button", { name: "Save" })).toBeEnabled();
     await this.page.getByRole("button", { name: "Save" }).click();
     await this.page.getByRole("button", { name: "Done" }).click();
+    await expect(
+      this.page.getByRole("button", { name: "Delete" })
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Delete" })
+    ).toBeEnabled();
+    await expect(
+      this.page.getByRole("button", { name: "Clone" })
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Clone" })
+    ).toBeEnabled();
   }
 
-  async createSingleSelectQuestionmock() {
+  async createMultiSelectQuestion() {
     if (await this.page.isVisible(this.createQuestionnaireButton)) {
       await this.page.locator(this.createQuestionnaireButton).click();
     } else {
       await this.page.click(this.editQuestionnaire);
     }
+    await expect(
+      this.page.getByRole("button", { name: "Add New Question" })
+    ).toBeVisible();
     await this.page.getByRole("button", { name: "Add New Question" }).click();
-    await this.page.getByRole("button", { name: "Single Select" }).click();
-    await this.page
-      .getByPlaceholder("Enter question", { exact: true })
-      .fill("Tell more about the company");
-    await this.page.getByRole("textbox").nth(2).fill("Question Description");
-    await this.page.getByRole("button", { name: "Choose Preset" }).click();
-    await this.page.click("//div[@id='Scale']");
-    await this.page.getByRole("option", { name: "5" }).click();
-    await this.page.click("//div[@id='Preset Type']");
-    await this.page.getByRole("option", { name: "Willingness" }).click();
-    await this.page.getByRole("button", { name: "Choose Preset" }).click();
-
-    await this.page.route("*/**/survey/AddSurveyQuestion", async (route) => {
-      const json = {
-        meta: {
-          status: "OK",
-        },
-        response: {
-          surveyDetailsAndQuestions: {
-            surveyStatusAndName: {
-              surveyStatus: {
-                case: "DRAFT",
-              },
-              surveyName: {
-                name: "HR Survey",
-              },
-            },
-            surveyQuestionDetails: [
-              {
-                questionId: "037fefa4-f305-493e-acd2-0df8f8eceed6",
-                questionCode: {
-                  code: "Q1",
-                },
-                questionType: {
-                  case: "SINGLE_CHOICE",
-                },
-                question: {
-                  text: "What role(s) do you see yourself playing in the company within the next five years?",
-                },
-                order: {
-                  order: 1,
-                },
-                isQuestionVisible: true,
-                isRuleApplied: true,
-                childQuestionIds: [],
-                isMandatory: false,
-              },
-              {
-                questionId: "9ecbce94-54a6-4594-8c37-71b08487cf93",
-                questionCode: {
-                  code: "Q2",
-                },
-                questionType: {
-                  case: "SINGLE_CHOICE",
-                },
-                question: {
-                  text: "What role(s) do you see yourself playing in the company within the next five years?",
-                },
-                order: {
-                  order: 2,
-                },
-                isQuestionVisible: true,
-                isRuleApplied: true,
-                childQuestionIds: [],
-                isMandatory: false,
-              },
-              {
-                questionId: "c8ef335d-f078-4474-b341-f2e1e822a61b",
-                questionCode: {
-                  code: "Q3",
-                },
-                questionType: {
-                  case: "SINGLE_CHOICE",
-                },
-                question: {
-                  text: "What role(s) do you see yourself playing in the company within the next five years?",
-                },
-                order: {
-                  order: 3,
-                },
-                isQuestionVisible: true,
-                isRuleApplied: true,
-                childQuestionIds: [],
-                isMandatory: false,
-              },
-              {
-                questionId: "4979ab55-3ed0-4dd7-a579-6324f357e0d7",
-                questionCode: {
-                  code: "Q4",
-                },
-                questionType: {
-                  case: "SINGLE_CHOICE",
-                },
-                question: {
-                  text: "What role(s) do you see yourself playing in the company within the next five years?",
-                },
-                order: {
-                  order: 4,
-                },
-                isQuestionVisible: true,
-                isRuleApplied: true,
-                childQuestionIds: [],
-                isMandatory: false,
-              },
-              {
-                questionId: "838d9d19-76a3-4227-b781-c69eda66c7bd",
-                questionCode: {
-                  code: "Q5",
-                },
-                questionType: {
-                  case: "SINGLE_CHOICE",
-                },
-                question: {
-                  text: "What role(s) do you see yourself playing in the company within the next five years?",
-                },
-                order: {
-                  order: 5,
-                },
-                isQuestionVisible: true,
-                isRuleApplied: true,
-                childQuestionIds: [],
-                isMandatory: false,
-              },
-              {
-                questionId: "f54f28a2-4050-4774-aeb5-ebc23bd05e86",
-                questionCode: {
-                  code: "Q6",
-                },
-                questionType: {
-                  case: "OPEN_ENDED",
-                },
-                question: {
-                  text: "What role(s) do you see yourself playing in the company within the next five years?",
-                },
-                order: {
-                  order: 6,
-                },
-                isQuestionVisible: true,
-                isRuleApplied: false,
-                childQuestionIds: [],
-                isMandatory: false,
-              },
-              {
-                questionId: "f2ee72cf-012e-4a58-8fef-3c890235bd42",
-                questionCode: {
-                  code: "Q7",
-                },
-                questionType: {
-                  case: "SINGLE_CHOICE",
-                },
-                question: {
-                  text: "Verify that the user can interact with all input elements by performing the following text.",
-                },
-                order: {
-                  order: 7,
-                },
-                isQuestionVisible: true,
-                isRuleApplied: false,
-                childQuestionIds: [],
-                isMandatory: false,
-              },
-            ],
-          },
-          questionId: "f2ee72cf-012e-4a58-8fef-3c890235bd42",
-        },
-      };
-      await route.fulfill({ json });
-    });
-
-    await this.page.route("*/**/survey/GetQuestionDetails", async (route) => {
-      const json = {
-        meta: {
-          status: "OK",
-        },
-        response: {
-          questionDetails: {
-            basicQuestionDetails: {
-              questionCode: {
-                code: "Q8",
-              },
-              question: {
-                text: "What role(s) do you see yourself playing in the company within the next five years?",
-              },
-              isMandatory: false,
-              isVisibleByDefault: true,
-            },
-            questionDetailsJSON:
-              '{"options":[{"code":{"code":"1"},"option":{"text":"Poor"}},{"code":{"code":"2"},"option":{"text":"Fair"}},{"code":{"code":"3"},"option":{"text":"Good"}}],"singleChoiceDisplayType":{"case":"RADIO_BUTTON"},"isChoiceResetAllowed":true}',
-            jsonVersion: {
-              version: 1,
-            },
-          },
-          surveyDetailsAndQuestions: {
-            surveyStatusAndName: {
-              surveyStatus: {
-                case: "DRAFT",
-              },
-              surveyName: {
-                name: "HR Survey",
-              },
-            },
-            surveyQuestionDetails: [
-              {
-                questionId: "037fefa4-f305-493e-acd2-0df8f8eceed6",
-                questionCode: {
-                  code: "Q1",
-                },
-                questionType: {
-                  case: "SINGLE_CHOICE",
-                },
-                question: {
-                  text: "What role(s) do you see yourself playing in the company within the next five years?",
-                },
-                order: {
-                  order: 1,
-                },
-                isQuestionVisible: true,
-                isRuleApplied: true,
-                childQuestionIds: [],
-                isMandatory: false,
-              },
-              {
-                questionId: "9ecbce94-54a6-4594-8c37-71b08487cf93",
-                questionCode: {
-                  code: "Q2",
-                },
-                questionType: {
-                  case: "SINGLE_CHOICE",
-                },
-                question: {
-                  text: "What role(s) do you see yourself playing in the company within the next five years?",
-                },
-                order: {
-                  order: 2,
-                },
-                isQuestionVisible: true,
-                isRuleApplied: true,
-                childQuestionIds: [],
-                isMandatory: false,
-              },
-              {
-                questionId: "c8ef335d-f078-4474-b341-f2e1e822a61b",
-                questionCode: {
-                  code: "Q3",
-                },
-                questionType: {
-                  case: "SINGLE_CHOICE",
-                },
-                question: {
-                  text: "What role(s) do you see yourself playing in the company within the next five years?",
-                },
-                order: {
-                  order: 3,
-                },
-                isQuestionVisible: true,
-                isRuleApplied: true,
-                childQuestionIds: [],
-                isMandatory: false,
-              },
-              {
-                questionId: "4979ab55-3ed0-4dd7-a579-6324f357e0d7",
-                questionCode: {
-                  code: "Q4",
-                },
-                questionType: {
-                  case: "SINGLE_CHOICE",
-                },
-                question: {
-                  text: "What role(s) do you see yourself playing in the company within the next five years?",
-                },
-                order: {
-                  order: 4,
-                },
-                isQuestionVisible: true,
-                isRuleApplied: true,
-                childQuestionIds: [],
-                isMandatory: false,
-              },
-              {
-                questionId: "838d9d19-76a3-4227-b781-c69eda66c7bd",
-                questionCode: {
-                  code: "Q5",
-                },
-                questionType: {
-                  case: "SINGLE_CHOICE",
-                },
-                question: {
-                  text: "What role(s) do you see yourself playing in the company within the next five years?",
-                },
-                order: {
-                  order: 5,
-                },
-                isQuestionVisible: true,
-                isRuleApplied: true,
-                childQuestionIds: [],
-                isMandatory: false,
-              },
-              {
-                questionId: "f54f28a2-4050-4774-aeb5-ebc23bd05e86",
-                questionCode: {
-                  code: "Q6",
-                },
-                questionType: {
-                  case: "OPEN_ENDED",
-                },
-                question: {
-                  text: "What role(s) do you see yourself playing in the company within the next five years?",
-                },
-                order: {
-                  order: 6,
-                },
-                isQuestionVisible: true,
-                isRuleApplied: false,
-                childQuestionIds: [],
-                isMandatory: false,
-              },
-              {
-                questionId: "f2ee72cf-012e-4a58-8fef-3c890235bd42",
-                questionCode: {
-                  code: "Q7",
-                },
-                questionType: {
-                  case: "SINGLE_CHOICE",
-                },
-                question: {
-                  text: "Verify that the user can interact with all input elements by performing the following text.",
-                },
-                order: {
-                  order: 7,
-                },
-                isQuestionVisible: true,
-                isRuleApplied: false,
-                childQuestionIds: [],
-                isMandatory: false,
-              },
-              {
-                questionId: "2137aecf-ba9f-48bf-8243-9aeb1223f106",
-                questionCode: {
-                  code: "Q8",
-                },
-                questionType: {
-                  case: "SINGLE_CHOICE",
-                },
-                question: {
-                  text: "What role(s) do you see yourself playing in the company within the next five years?",
-                },
-                order: {
-                  order: 8,
-                },
-                isQuestionVisible: true,
-                isRuleApplied: false,
-                childQuestionIds: [],
-                isMandatory: false,
-              },
-            ],
-          },
-        },
-      };
-      await route.fulfill({ json });
-    });
-
-    await this.page.getByRole("button", { name: "Save" }).click();
-    await this.page.getByRole("button", { name: "Done" }).click();
-  }
-
-  async createMultiSelectQuestion() {
-    // if (await this.page.isVisible(this.createQuestionnaireButton)) {
-    //   await this.page.locator(this.createQuestionnaireButton).click();
-    // } else {
-    //   await this.page.click(this.editQuestionnaire);
-    // }
-
-    await this.page.getByRole("button", { name: "Add New Question" }).click();
+    await expect(this.page.locator("//div[@role='dialog']")).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Single Select" })
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Multi Select" })
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Open Ended" })
+    ).toBeVisible();
+    await expect(this.page.getByRole("button", { name: "Grid" })).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Group" })
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Ranking" })
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Message" })
+    ).toBeVisible();
     await this.page.getByRole("button", { name: "Multi Select" }).click();
+    await expect(this.page.locator("#root")).toContainText("Question");
+    await expect(this.page.locator("#root")).toContainText(
+      "Question Description"
+    );
+    await expect(
+      this.page
+        .locator(
+          "div:nth-child(2) > div > div > div > div:nth-child(2) > div > div > .MuiFormControl-root > .MuiInputBase-root"
+        )
+        .first()
+    ).toBeVisible();
+    await expect(this.page.getByRole("textbox").nth(2)).toBeVisible();
+    await expect(this.page.getByText("Choice Customisation")).toBeVisible();
     await this.page.getByPlaceholder("Enter question", { exact: true }).click();
+    await expect(this.page.getByPlaceholder("Enter code")).toBeVisible();
+    await expect(this.page.locator('button[name="addButton"]')).toBeVisible();
+    await expect(this.page.getByText("Question Attributes")).toBeVisible();
+    await expect(this.page.locator("#root")).toContainText(
+      "Indicate this question as mandatory to the respondent"
+    );
+    await expect(this.page.locator("#root")).toContainText(
+      "Make this question visible by default"
+    );
+    await expect(this.page.locator("#root")).toContainText(
+      "Allow the user to reset their choices"
+    );
+    await expect(
+      this.page.locator("(//input[@type='checkbox'])[1]")
+    ).not.toBeChecked();
+    await expect(
+      this.page.locator("(//input[@type='checkbox'])[2]")
+    ).toBeChecked();
+    await expect(
+      this.page.locator("(//input[@type='checkbox'])[3]")
+    ).not.toBeChecked();
+    await expect(this.page.getByText("Max. Selection")).toBeVisible();
+    await expect(this.page.locator('button[name="plusButton"]')).toBeVisible();
+    await expect(this.page.locator('input[name="inputField"]')).toBeVisible();
     await this.page
       .getByPlaceholder("Enter question", { exact: true })
       .fill("What is the preferred mode of transportation?");
@@ -419,6 +202,7 @@ export class Surveypage {
       .locator(".ProseMirror")
       .fill("Please answer the above question.");
     await this.page.locator('button[name="addButton"]').click();
+    await expect(this.page.locator('button[name="minusButton"]')).toBeVisible();
     await this.page.locator('button[name="addButton"]').first().click();
     await this.page.locator('button[name="addButton"]').first().click();
     await this.page.getByPlaceholder("Enter option").first().fill("Car");
@@ -433,24 +217,89 @@ export class Surveypage {
     await this.page.getByPlaceholder("Enter option").nth(3).fill("Metro");
     await this.page.getByPlaceholder("Enter option").nth(3).press("Tab");
     await this.page.getByPlaceholder("Enter code").nth(3).fill("4");
+    await expect(
+      this.page.getByRole("button", { name: "Reset", exact: true })
+    ).toBeVisible();
+    await expect(this.page.getByRole("button", { name: "Save" })).toBeVisible();
+    await expect(this.page.getByRole("button", { name: "Save" })).toBeEnabled();
     await this.page.getByRole("button", { name: "Save" }).click();
     await this.page.getByRole("button", { name: "Done" }).click();
+    await expect(
+      this.page.getByRole("button", { name: "Delete" })
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Delete" })
+    ).toBeEnabled();
+    await expect(
+      this.page.getByRole("button", { name: "Clone" })
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Clone" })
+    ).toBeEnabled();
   }
 
   async createOpenEndedQuestion() {
-    // if (await this.page.isVisible(this.createQuestionnaireButton)) {
-    //   await this.page.locator(this.createQuestionnaireButton).click();
-    // } else {
-    //   await this.page.click(this.editQuestionnaire);
-    // }
-
+    if (await this.page.isVisible(this.createQuestionnaireButton)) {
+      await this.page.locator(this.createQuestionnaireButton).click();
+    } else {
+      await this.page.click(this.editQuestionnaire);
+    }
+    await expect(
+      this.page.getByRole("button", { name: "Add New Question" })
+    ).toBeVisible();
     await this.page.getByRole("button", { name: "Add New Question" }).click();
+    await expect(this.page.locator("//div[@role='dialog']")).toBeVisible();
     await this.page.getByRole("button", { name: "Open Ended" }).click();
-    await this.page.getByPlaceholder("Enter question", { exact: true }).click();
+    await expect(this.page.locator("#root")).toContainText("Question");
+    await expect(this.page.locator("#root")).toContainText(
+      "Question Description"
+    );
+    await expect(
+      this.page
+        .locator(
+          "div:nth-child(2) > div > div > div > div:nth-child(2) > div > div > .MuiFormControl-root > .MuiInputBase-root"
+        )
+        .first()
+    ).toBeVisible();
+    await expect(this.page.getByRole("textbox").nth(2)).toBeVisible();
+    await expect(
+      this.page.getByText("Open Ended Field Customisation")
+    ).toBeVisible();
+    await expect(this.page.getByText("ENTRY")).toBeVisible();
+    await expect(this.page.getByText("Field Title")).toBeVisible();
+    await expect(this.page.getByText("Code *", { exact: true })).toBeVisible();
+    await expect(this.page.getByText("Hint")).toBeVisible();
+    await expect(this.page.locator('button[name="addButton"]')).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Reset" })
+    ).toBeVisible();
+    await expect(this.page.getByText("Question Attributes")).toBeVisible();
+    await expect(this.page.locator("#root")).toContainText(
+      "Indicate this question as mandatory to the respondent"
+    );
+    await expect(this.page.locator("#root")).toContainText(
+      "Make this question visible by default"
+    );
+    await expect(this.page.locator("#root")).toContainText(
+      "Allow the user to reset their response"
+    );
+    await expect(
+      this.page.locator("(//input[@type='checkbox'])[1]")
+    ).not.toBeChecked();
+    await expect(
+      this.page.locator("(//input[@type='checkbox'])[2]")
+    ).toBeChecked();
+    await expect(
+      this.page.locator("(//input[@type='checkbox'])[3]")
+    ).not.toBeChecked();
     await this.page
       .getByPlaceholder("Enter question", { exact: true })
       .fill("Please enter your answers in the below fields");
     await this.page.locator('button[name="addButton"]').click();
+    await expect(
+      this.page.locator('button[name="deleteButton"]').first()
+    ).toBeVisible();
+    await expect(this.page.getByText("ENTRY 2")).toBeVisible();
     await this.page.locator('button[name="addButton"]').first().click();
     await this.page
       .getByPlaceholder("Enter title for the field")
@@ -479,10 +328,196 @@ export class Surveypage {
       .nth(2)
       .press("Tab");
     await this.page.getByPlaceholder("Enter code").nth(2).fill("3");
+    await expect(this.page.getByRole("button", { name: "Save" })).toBeVisible();
+    await expect(this.page.getByRole("button", { name: "Save" })).toBeEnabled();
     await this.page.getByRole("button", { name: "Save" }).click();
     await this.page.getByRole("button", { name: "Done" }).click();
+    await expect(
+      this.page.getByRole("button", { name: "Delete" })
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Delete" })
+    ).toBeEnabled();
+    await expect(
+      this.page.getByRole("button", { name: "Clone" })
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Clone" })
+    ).toBeEnabled();
   }
 
+  async createGridQuestion() {
+    if (await this.page.isVisible(this.createQuestionnaireButton)) {
+      await this.page.locator(this.createQuestionnaireButton).click();
+    } else {
+      await this.page.click(this.editQuestionnaire);
+    }
+    await expect(
+      this.page.getByRole("button", { name: "Add New Question" })
+    ).toBeVisible();
+    await this.page.getByRole("button", { name: "Add New Question" }).click();
+    await this.page.getByRole("button", { name: "Grid" }).click();
+    await expect(this.page.locator("#root")).toContainText("Basic Information");
+    await expect(this.page.locator("#root")).toContainText("Question Code *");
+    await expect(
+      this.page.getByPlaceholder("Enter question code")
+    ).toBeVisible();
+    await expect(this.page.locator("#root")).toContainText("Question");
+    await expect(
+      this.page.getByPlaceholder("Enter question", { exact: true })
+    ).toBeVisible();
+    await expect(this.page.locator("#root")).toContainText(
+      "Question Description"
+    );
+    await expect(this.page.locator(".ProseMirror")).toBeVisible();
+    await expect(this.page.locator("#root")).toContainText(
+      "Questions Customisation"
+    );
+    await expect(this.page.getByRole("tab", { name: "Rows" })).toBeVisible();
+    await expect(this.page.getByRole("tab", { name: "Columns" })).toBeVisible();
+    await expect(this.page.getByText("ROW CUSTOMIZATION")).toBeVisible();
+    await expect(this.page.locator("#root")).toContainText("ROW CUSTOMIZATION");
+    await expect(
+      this.page.locator(
+        "div:nth-child(3) > div > .MuiFormControl-root > .MuiInputBase-root"
+      )
+    ).toBeVisible();
+    await expect(this.page.getByPlaceholder("Enter option")).toBeVisible();
+    await expect(this.page.getByPlaceholder("Enter code")).toBeVisible();
+    await expect(this.page.locator('button[name="addButton"]')).toBeVisible();
+    await expect(this.page.locator("#root")).toContainText(
+      "Question Attributes"
+    );
+    await expect(this.page.locator("#root")).toContainText(
+      "Make this question visible by default"
+    );
+    await expect(this.page.locator("#root")).toContainText(
+      "Indicate all the row options as mandatory if row attempted"
+    );
+    await expect(this.page.locator("#root")).toContainText(
+      "Allow the user to reset their choices"
+    );
+    await expect(
+      this.page.locator("(//input[@type='checkbox'])[1]")
+    ).not.toBeChecked();
+    await expect(
+      this.page.locator("(//input[@type='checkbox'])[2]")
+    ).toBeChecked();
+    await expect(
+      this.page.locator("(//input[@type='checkbox'])[3]")
+    ).not.toBeChecked();
+    await expect(
+      this.page.locator("(//input[@type='checkbox'])[4]")
+    ).toBeChecked();
+    await this.page
+      .getByPlaceholder("Enter question", { exact: true })
+      .fill("Grid Question");
+    await this.page.getByPlaceholder("Enter row header").fill("Row Header");
+    await this.page.locator('button[name="addButton"]').click();
+    await this.page.getByPlaceholder("Enter code").first().fill("1");
+    await this.page.getByPlaceholder("Enter code").nth(1).fill("2");
+    await expect(
+      this.page.locator('button[name="deleteButton"]').first()
+    ).toBeVisible();
+    await expect(
+      this.page.locator('button[name="addButton"]').nth(1)
+    ).toBeVisible();
+    await expect(
+      this.page.locator('button[name="deleteButton"]').nth(1)
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Reset" })
+    ).toBeVisible();
+    await expect(this.page.getByRole("button", { name: "Save" })).toBeVisible();
+    await this.page.getByRole("tab", { name: "Columns" }).click();
+    await expect(this.page.getByText("COLUMN 1")).toBeVisible();
+    await expect(this.page.locator("#root")).toContainText("COLUMN 1");
+    await expect(
+      this.page
+        .locator(
+          "div:nth-child(3) > div > div > .MuiFormControl-root > .MuiInputBase-root"
+        )
+        .first()
+    ).toBeVisible();
+    await expect(this.page.locator('input[name="columnCode"]')).toBeVisible();
+    await expect(this.page.locator("#root")).toContainText("Question Type");
+    await expect(
+      this.page.getByRole("radiogroup").getByText("Single Select")
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("radiogroup").getByText("Multi Select")
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("radiogroup").getByText("Open Ended")
+    ).toBeVisible();
+    await this.page.locator('input[name="code"]').fill("1");
+    await this.page.locator('button[name="addButton"]').first().click();
+    await this.page.locator('button[name="addButton"]').nth(1).click();
+    await expect(
+      this.page.locator('button[name="deleteButton"]').first()
+    ).toBeVisible();
+    await expect(this.page.locator("#root")).toContainText("COLUMN 2");
+    await this.page.locator('input[name="code"]').nth(1).fill("2");
+    await this.page.locator('input[name="code"]').nth(2).fill("3");
+    await this.page.getByLabel("Single Select").nth(1).check();
+    await expect(
+      this.page.getByText(
+        "Choice Display TypeSelectionRadio ButtonsDropdownSliderDefault SliderRYG"
+      )
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Choose Preset" })
+    ).toBeVisible();
+    await this.page.getByRole("button", { name: "Choose Preset" }).click();
+    await this.page.getByText("Select", { exact: true }).click();
+    await this.page.getByText("Good-Poor").click();
+    await this.page.getByRole("button", { name: "Choose Preset" }).click();
+    await this.page.getByLabel("Multi Select").nth(2).check();
+    await this.page
+      .locator("div:nth-child(2) > div > div:nth-child(3) > button")
+      .first()
+      .click();
+    await this.page
+      .locator(
+        "div:nth-child(5) > div:nth-child(4) > div > div:nth-child(2) > div > div:nth-child(2) > .MuiFormControl-root > .MuiInputBase-root > #text-input-field"
+      )
+      .first()
+      .fill("1");
+    await this.page
+      .locator(
+        "div:nth-child(5) > div:nth-child(4) > div > div:nth-child(2) > div:nth-child(2) > div:nth-child(2) > .MuiFormControl-root > .MuiInputBase-root > #text-input-field"
+      )
+      .fill("2");
+    await this.page.getByPlaceholder("Enter option").nth(3).fill("High");
+    await this.page
+      .locator(
+        "div:nth-child(5) > div:nth-child(4) > div > div:nth-child(2) > div:nth-child(2) > div > .MuiFormControl-root > .MuiInputBase-root"
+      )
+      .first()
+      .click();
+    await this.page.getByPlaceholder("Enter option").nth(4).fill("Low");
+    await expect(this.page.getByRole("button", { name: "Save" })).toBeEnabled();
+    await this.page.getByRole("button", { name: "Save" }).click();
+    await expect(this.page.getByRole("heading")).toContainText("Successful");
+    await expect(this.page.getByLabel("Successful")).toContainText(
+      "The question has been saved successfully."
+    );
+    await expect(this.page.getByRole("img")).toBeVisible();
+    await expect(this.page.getByRole("button", { name: "Done" })).toBeVisible();
+    await this.page.getByRole("button", { name: "Done" }).click();
+    await expect(
+      this.page.getByRole("button", { name: "Delete" })
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Delete" })
+    ).toBeEnabled();
+    await expect(
+      this.page.getByRole("button", { name: "Clone" })
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Clone" })
+    ).toBeEnabled();
+  }
   async uploadRules(csv_filepath) {
     await this.page.getByRole("button", { name: "Upload Rules" }).click();
     await expect(this.page.getByRole("heading")).toContainText("Upload Rules");

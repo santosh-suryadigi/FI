@@ -1,4 +1,4 @@
-const { test, expect } = require("@playwright/test");
+const { test } = require("@playwright/test");
 import { Loginpage } from "../pages/Loginpage";
 import { Projectpage } from "../pages/Projectpage";
 import { Homepage } from "../pages/Homepage";

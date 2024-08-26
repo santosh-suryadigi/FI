@@ -1,4 +1,4 @@
-const { test, expect } = require("@playwright/test");
+const { expect } = require("@playwright/test");
 export class Projectpage {
   constructor(page) {
     this.page = page;
@@ -13,7 +13,8 @@ export class Projectpage {
     await this.page.waitForTimeout(1000);
   }
 
-  async verifyTabVisibility() {
+  async validateProjectPageUI() {
+    await expect(this.page.getByRole("tab", { name: "Surveys" })).toBeVisible();
     await expect(
       this.page.getByRole("tab", { name: "Respondents" })
     ).toBeVisible();
@@ -24,6 +25,23 @@ export class Projectpage {
     await expect(
       this.page.getByRole("tab", { name: "User Access" })
     ).toBeVisible();
+    await expect(
+      this.page.getByRole("tab", { name: "Settings" })
+    ).toBeVisible();
+    await expect(
+      this.page
+        .locator("div")
+        .filter({ hasText: /^Surveys$/ })
+        .getByRole("paragraph")
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Create New Survey" }).first()
+    ).toBeVisible();
+    await expect(
+      this.page.getByRole("button", { name: "Create New Survey" }).first()
+    ).toBeEnabled();
+    // Validates the presence of project name and the dates.
+    await expect(this.page.locator(".css-2j5iyq")).toBeVisible();
   }
 
   async openSurvey(surveyname) {

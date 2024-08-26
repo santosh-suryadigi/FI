@@ -1,4 +1,4 @@
-const { test, expect } = require("@playwright/test");
+const { expect } = require("@playwright/test");
 
 export class RespondentPage {
   constructor(page) {
@@ -6,7 +6,9 @@ export class RespondentPage {
   }
 
   async validateRespondentPageFirsttime() {
-    await this.page.waitForSelector("(//p[@class='MuiTypography-root MuiTypography-body1 css-o0mwwd'])[1]")
+    await this.page.waitForSelector(
+      "(//p[@class='MuiTypography-root MuiTypography-body1 css-o0mwwd'])[1]"
+    );
     await expect(this.page.getByText("Respondents").nth(1)).toBeVisible();
     await expect(this.page.getByRole("button", { name: "Test" })).toBeVisible();
     await this.page.getByRole("button", { name: "Test" }).click();
@@ -214,7 +216,7 @@ export class RespondentPage {
   }
 
   async validateDeleteColumnFlowUI() {
-    await this.page.waitForSelector("//button[@name='deleteColumn']")
+    await this.page.waitForSelector("//button[@name='deleteColumn']");
     await expect(
       this.page.getByRole("button", { name: "Delete Column" })
     ).toBeVisible();
@@ -279,9 +281,9 @@ export class RespondentPage {
 
   async assignMultiAssignedRespondents() {
     await this.page
-        .locator(`tr:nth-child(1) > td > .MuiStack-root`)
-        .first()
-        .click();
+      .locator(`tr:nth-child(1) > td > .MuiStack-root`)
+      .first()
+      .click();
 
     await this.page.getByRole("button", { name: "Assign to Survey" }).click();
     await this.page.getByLabel("IT Survey", { exact: true }).check();
@@ -321,7 +323,10 @@ export class RespondentPage {
   }
 
   async assignAlreadyAssignedRespondents() {
-    await this.page.locator("//table//thead//tr[1]//th[1]//label").first().click();
+    await this.page
+      .locator("//table//thead//tr[1]//th[1]//label")
+      .first()
+      .click();
     await this.page.getByRole("button", { name: "Assign to Survey" }).click();
     await this.page
       .getByLabel("Choose Survey")
@@ -387,7 +392,10 @@ export class RespondentPage {
     await this.page.getByRole("button", { name: "Close" }).click();
   }
   async assignSurveyOfArchivedProject() {
-    await this.page.locator("//table//thead//tr[1]//th[1]//label").first().click();
+    await this.page
+      .locator("//table//thead//tr[1]//th[1]//label")
+      .first()
+      .click();
     await this.page.getByRole("button", { name: "Assign to Survey" }).click();
     await this.page.getByLabel("IT Survey", { exact: true }).check();
     await this.page.getByRole("button", { name: "Assign Survey" }).click();
