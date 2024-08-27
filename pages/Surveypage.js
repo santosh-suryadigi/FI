@@ -1,4 +1,5 @@
 const { expect } = require("@playwright/test");
+import { resetViewPort, setViewPort } from "../tests/utils/viewPortScreenShotUtils"
 
 export class Surveypage {
   constructor(page) {
@@ -38,6 +39,9 @@ export class Surveypage {
       this.page.getByRole("button", { name: "Message" })
     ).toBeVisible();
     await this.page.getByRole("button", { name: "Single Select" }).click();
+    await setViewPort(this.page, "div[class='MuiStack-root css-3j596c'] div[class='MuiStack-root css-o0o90z']") 
+    await expect(this.page.locator('.css-3j596c')).toHaveScreenshot('Single_select_question.png',{fullPage: true,});
+    await resetViewPort(this.page)
     await expect(this.page.locator("#root")).toContainText("Question");
     await expect(this.page.locator("#root")).toContainText(
       "Question Description"
@@ -126,11 +130,11 @@ export class Surveypage {
   }
 
   async createMultiSelectQuestion() {
-    if (await this.page.isVisible(this.createQuestionnaireButton)) {
-      await this.page.locator(this.createQuestionnaireButton).click();
-    } else {
-      await this.page.click(this.editQuestionnaire);
-    }
+    // if (await this.page.isVisible(this.createQuestionnaireButton)) {
+    //   await this.page.locator(this.createQuestionnaireButton).click();
+    // } else {
+    //   await this.page.click(this.editQuestionnaire);
+    // }
     await expect(
       this.page.getByRole("button", { name: "Add New Question" })
     ).toBeVisible();
@@ -156,6 +160,9 @@ export class Surveypage {
       this.page.getByRole("button", { name: "Message" })
     ).toBeVisible();
     await this.page.getByRole("button", { name: "Multi Select" }).click();
+    await setViewPort(this.page, "div[class='MuiStack-root css-3j596c'] div[class='MuiStack-root css-o0o90z']") 
+    await expect(this.page.locator('.css-3j596c')).toHaveScreenshot('Multi_select_question.png',{fullPage: true,});
+    await resetViewPort(this.page)
     await expect(this.page.locator("#root")).toContainText("Question");
     await expect(this.page.locator("#root")).toContainText(
       "Question Description"
@@ -239,17 +246,20 @@ export class Surveypage {
   }
 
   async createOpenEndedQuestion() {
-    if (await this.page.isVisible(this.createQuestionnaireButton)) {
-      await this.page.locator(this.createQuestionnaireButton).click();
-    } else {
-      await this.page.click(this.editQuestionnaire);
-    }
+    // if (await this.page.isVisible(this.createQuestionnaireButton)) {
+    //   await this.page.locator(this.createQuestionnaireButton).click();
+    // } else {
+    //   await this.page.click(this.editQuestionnaire);
+    // }
     await expect(
       this.page.getByRole("button", { name: "Add New Question" })
     ).toBeVisible();
     await this.page.getByRole("button", { name: "Add New Question" }).click();
     await expect(this.page.locator("//div[@role='dialog']")).toBeVisible();
     await this.page.getByRole("button", { name: "Open Ended" }).click();
+    await setViewPort(this.page, "div[class='MuiStack-root css-3j596c'] div[class='MuiStack-root css-o0o90z']") 
+    await expect(this.page.locator('.css-3j596c')).toHaveScreenshot('Open_ended_question.png',{fullPage: true,});
+    await resetViewPort(this.page)
     await expect(this.page.locator("#root")).toContainText("Question");
     await expect(this.page.locator("#root")).toContainText(
       "Question Description"
@@ -347,16 +357,19 @@ export class Surveypage {
   }
 
   async createGridQuestion() {
-    if (await this.page.isVisible(this.createQuestionnaireButton)) {
-      await this.page.locator(this.createQuestionnaireButton).click();
-    } else {
-      await this.page.click(this.editQuestionnaire);
-    }
+    // if (await this.page.isVisible(this.createQuestionnaireButton)) {
+    //   await this.page.locator(this.createQuestionnaireButton).click();
+    // } else {
+    //   await this.page.click(this.editQuestionnaire);
+    // }
     await expect(
       this.page.getByRole("button", { name: "Add New Question" })
     ).toBeVisible();
     await this.page.getByRole("button", { name: "Add New Question" }).click();
     await this.page.getByRole("button", { name: "Grid" }).click();
+    await setViewPort(this.page, "div[class='MuiStack-root css-3j596c'] div[class='MuiStack-root css-o0o90z']") 
+    await expect(this.page.locator('.css-3j596c')).toHaveScreenshot('Grid_question.png',{fullPage: true,});
+    await resetViewPort(this.page)
     await expect(this.page.locator("#root")).toContainText("Basic Information");
     await expect(this.page.locator("#root")).toContainText("Question Code *");
     await expect(
