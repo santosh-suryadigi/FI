@@ -29,7 +29,6 @@ module.exports = defineConfig({
       // baseURL: "https://bo.dev.feedbackinsightspulse.com/",
       // username: "santosh.v@surya-digital.com",
       // password: "Password@123",
-      viewport: { width: 2000, height: 1580 }, // Set the viewport size
 
     /* Capture screenshot only on failure */
     screenshot: 'only-on-failure',
@@ -43,7 +42,10 @@ module.exports = defineConfig({
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { 
+      ...devices['Desktop Chrome'],
+      viewport: { width: 1536, height: 730 }// Set the viewport size
+      }
     },
 
     // {
