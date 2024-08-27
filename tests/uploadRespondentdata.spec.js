@@ -1,28 +1,19 @@
-const { test, expect } = require('@playwright/test')
-import { Loginpage } from '../pages/Loginpage';
-import { Projectpage } from '../pages/Projectpage';
-import { Homepage } from '../pages/Homepage';
-import { RespondentPage } from '../pages/Respondentpage';
+const { test } = require("@playwright/test");
+import { Utils } from '../pages/Utils';
+import { RespondentPage } from "../pages/Respondentpage";
 
-test.beforeEach('Login & navigate to Respondent page', async ({ page }) => {
-    const login = new Loginpage(page)
-    await login.navigateToLoginPage()
-    await login.login()
-    const home = new Homepage(page)
-    const project = new Projectpage(page)
-    //opens an existing project
-    await home.openExistingProject('Performance Test 9')
-    await project.navigateToRespondentTab()
+test.beforeEach('Login & Navigate To Respondent Page', async ({ page }) => {
+    const utils = new Utils();
+    // Login and navigate to respondent page of a project
+    utils.loginAndNavigateToRespondentTab("Automation 5", page);
 })
 
-test('Upload Respondent data for the first time', async ({ page }) => {
-    const respondent = new RespondentPage(page)
-    await respondent.validateRespondentPageFirsttime()
-    await respondent.downloadRespondentTemplateFile()
-    await respondent.uploadRespondentData('./testdata/Respondent_data.csv')
-    // await respondent.verifyUploadedRespondentData()
-    // await respondent.reuploadRespondentData()
-    // await respondent.downloadRespondentdata()
-
+test("Upload Respondent Data For The First Time", async ({ page }) => {
+  const respondent = new RespondentPage(page);
+  // Validates the UI of the respondent page with no data
+  await respondent.validateRespondentPageFirsttime();
+  // Downloads the respondent template fle
+  await respondent.downloadRespondentTemplateFile();
+  // Uploads the respondent data for the first time
+  await respondent.uploadRespondentData("./testdata/Respondent_data.csv");
 });
-

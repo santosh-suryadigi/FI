@@ -10,6 +10,7 @@ const { defineConfig, devices } = require('@playwright/test');
 /**
  * @see https://playwright.dev/docs/test-configuration
  */
+
 module.exports = defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
@@ -28,18 +29,23 @@ module.exports = defineConfig({
       // baseURL: "https://bo.dev.feedbackinsightspulse.com/",
       // username: "santosh.v@surya-digital.com",
       // password: "Password@123",
-      viewport: { width: 1920, height: 1080 }, // Set the viewport size
 
+    /* Capture screenshot only on failure */
+    screenshot: 'only-on-failure',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+  
   },
 
   /* Configure projects for major browsers */
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { 
+      ...devices['Desktop Chrome'],
+      viewport: { width: 1536, height: 730 }// Set the viewport size
+      }
     },
 
     // {
@@ -80,4 +86,3 @@ module.exports = defineConfig({
   //   reuseExistingServer: !process.env.CI,
   // },
 });
-
