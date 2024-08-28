@@ -9,7 +9,7 @@ test.beforeEach('Login And Navigate To Home Page',async({page})=>{
     await login.navigateToLoginPage()
     await login.login()
 })
-test.setTimeout(60000)
+test.setTimeout(120000)
 test('Survey Questionnaire Creation flow', async ({ page }) => {
     const login = new Loginpage(page)
     const project = new Homepage(page)
@@ -19,15 +19,24 @@ test('Survey Questionnaire Creation flow', async ({ page }) => {
     const projectName = `AT - DemoProject- ${currentTime}`;
     // Creates a new project
     await project.createNewProject(projectName) 
+    const surveyName ='Employee Satisfaction'
     // Creates and opens a new survey in the project
-    await survey.createNewSurvey('Employee Satisfaction')
+    await survey.createNewSurvey(surveyName)
     const question = new Surveypage(page);
+    await question.navigateToEditQuestionnairePage()
     // Creates questions
     await question.createSingleSelectQuestion();
     await question.createMultiSelectQuestion();
     await question.createOpenEndedQuestion()
     await question.createGridQuestion()
+    await question.createMessageQuestion()
+    await question.createRankingQuestion()
+    await question.createGroupQuestion()
+    await question.createSubGroupQuestion()
+    await question.validateErrorsInQuestionnairePage()
     // Navigating back to the home page
     await login.navigateToHomePage()
+    // Archiveing a project
     await project.archiveProject(projectName)
 });
+

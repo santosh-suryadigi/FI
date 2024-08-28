@@ -11,29 +11,34 @@ test.beforeEach(
     await login.login();
     const project = new Homepage(page);
     const survey = new Projectpage(page);
+    const surveyquestion = new Surveypage(page);
     // Opens an existing project
     await project.openExistingProject("Demo Project 28");
     // Opens an existing survey
     await survey.openSurvey("IT Survey");
+    await surveyquestion.navigateToEditQuestionnairePage();
   }
 );
 
-test("Create 3 Question", async ({ page }) => {
+test("Create Question", async ({ page }) => {
   const question = new Surveypage(page);
-  // await question.createSingleSelectQuestion();
+  // await question.validateErrorsInQuestionnairePage()
+
   // await question.createMultiSelectQuestion();
   // await question.createOpenEndedQuestion()
-  await question.createGridQuestion()
+  // await question.createRankingQuestion()
+  // await question.createGroupQuestion()
+  // await question.createGridQuestion()
 
 });
-test("Create 4 Question", async ({ page }) => {
-  const question = new Surveypage(page);
-  await question.createSingleSelectQuestion();
+// test("Create 4 Question", async ({ page }) => {
+//   const question = new Surveypage(page);
+//   await question.createSingleSelectQuestion();
   // await question.createMultiSelectQuestion();
   // await question.createOpenEndedQuestion()
   // await question.createGridQuestion()
 
-});
+// });
 
 // test('Create A Multi Select Question', async ({ page }) => {
 //     const question= new Surveypage(page)
