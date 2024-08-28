@@ -13,18 +13,19 @@ test.beforeEach(
     const survey = new Projectpage(page);
     const surveyquestion = new Surveypage(page);
     // Opens an existing project
-    await project.openExistingProject("Demo Project 28");
+    await project.openExistingProject("Demo Project 107");
     // Opens an existing survey
-    await survey.openSurvey("IT Survey");
+    await survey.openSurvey("HR Survey");
     await surveyquestion.navigateToEditQuestionnairePage();
   }
 );
 
 test("Create Question", async ({ page }) => {
   const question = new Surveypage(page);
+
   // await question.validateErrorsInQuestionnairePage()
 
-  // await question.createMultiSelectQuestion();
+  await question.addSurveyQuestionErrorMock();
   // await question.createOpenEndedQuestion()
   // await question.createRankingQuestion()
   // await question.createGroupQuestion()

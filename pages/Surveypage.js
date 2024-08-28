@@ -154,6 +154,26 @@ export class Surveypage {
     await expect(this.page.getByPlaceholder('Enter option').nth(4)).toHaveValue('Extremely willing');
   }
 
+  async addSurveyQuestionErrorMock() {
+    await this.page.route("*/**/survey/AddSurveyQuestion", async (route) => {
+      const json = {
+        "meta":{"status":"OK"},"error":{"code":"SURVEY_IS_CLOSED"}
+ 
+      };
+      await route.fulfill({ json });
+    });
+    await this.page.getByRole("button", { name: "Save" }).click();
+    await this.page.getByRole("button", { name: "Close" }).click();
+    await this.page.route("*/**/survey/AddSurveyQuestion", async (route) => {
+      const json = {
+        "meta":{"status":"OK"},"error":{"code":"INVALID_SURVEY_ID"}
+ 
+      };
+      await route.fulfill({ json });
+    });
+    await this.page.getByRole("button", { name: "Save" }).click();
+}
+
   async createMultiSelectQuestion() {
     await expect(
       this.page.getByRole("button", { name: "Add New Question" })

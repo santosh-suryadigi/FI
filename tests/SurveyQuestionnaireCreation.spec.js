@@ -34,6 +34,7 @@ test('Survey Questionnaire Creation flow', async ({ page }) => {
     await question.createGroupQuestion()
     await question.createSubGroupQuestion()
     await question.validateErrorsInQuestionnairePage()
+    await question.addSurveyQuestionErrorMock();
     // Navigating back to the home page
     await login.navigateToHomePage()
     // Archiveing a project
