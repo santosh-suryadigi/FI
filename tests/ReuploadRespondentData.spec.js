@@ -1,6 +1,6 @@
 const { test } = require('@playwright/test')
 import { Utils } from '../pages/Utils';
-import { RespondentPage } from '../pages/Respondentpage';
+import { RespondentPage } from '../pages/RespondentPage';
 
 test.beforeEach('Login & Navigate To Respondent Page', async ({ page }) => {
     const utils = new Utils();

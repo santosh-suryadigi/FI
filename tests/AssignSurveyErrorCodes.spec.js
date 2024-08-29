@@ -1,5 +1,5 @@
 const { test } = require("@playwright/test");
-import { RespondentPage } from "../pages/Respondentpage";
+import { RespondentPage } from "../pages/RespondentPage";
 import { Utils } from "../pages/Utils";
 
 test("Error Codes-1", async ({ page }) => {

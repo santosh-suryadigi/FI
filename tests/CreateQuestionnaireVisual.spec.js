@@ -1,8 +1,8 @@
 // Visual Testing
 import { test, expect } from "@playwright/test";
-import { Loginpage } from "../pages/Loginpage";
-import { Homepage } from "../pages/Homepage";
-import { Projectpage } from "../pages/Projectpage";
+import { Loginpage } from "../pages/LoginPage";
+import { Homepage } from "../pages/HomePage";
+import { Projectpage } from "../pages/ProjectPage";
 import { setViewPort,resetViewPort } from "./utils/viewPortScreenShotUtils";
 
 test("Example Test", async ({ page }) => {
@@ -16,6 +16,5 @@ test("Example Test", async ({ page }) => {
   const project = new Projectpage(page)
   await project.openSurvey('Employee Satisfaction')
   await page.waitForTimeout(1000)
-//   await expect(page).toHaveScreenshot("ProjectPage.png", {fullPage: true,});
-await expect(page).toHaveScreenshot('Create_questionnaire_page.png',{mask:[page.locator("body > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > p:nth-child(2)")]});
+  await expect(page).toHaveScreenshot('Create_questionnaire_page.png',{mask:[page.locator("body > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > p:nth-child(2)")]});
 });

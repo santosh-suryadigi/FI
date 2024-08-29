@@ -1,6 +1,6 @@
-import { Loginpage } from "../pages/Loginpage";
-import { Projectpage } from "../pages/Projectpage";
-import { Homepage } from "../pages/Homepage";
+import { Loginpage } from "./LoginPage";
+import { Projectpage } from "./ProjectPage";
+import { Homepage } from "./HomePage";
 
 export class Utils {
   async loginAndNavigateToRespondentTab(ProjectName, page) {

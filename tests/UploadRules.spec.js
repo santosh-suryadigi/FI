@@ -1,8 +1,8 @@
 const { test } = require("@playwright/test");
-import { Loginpage } from "../pages/Loginpage";
-import { Projectpage } from "../pages/Projectpage";
-import { Homepage } from "../pages/Homepage";
-import { Surveypage } from "../pages/Surveypage";
+import { Loginpage } from "../pages/LoginPage";
+import { Projectpage } from "../pages/ProjectPage";
+import { Homepage } from "../pages/HomePage";
+import { Surveypage } from "../pages/SurveyPage";
 
 test.beforeEach("Login & Navigate To Respondent Page", async ({ page }) => {
   const login = new Loginpage(page);
