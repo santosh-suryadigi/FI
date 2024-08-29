@@ -1,8 +1,16 @@
 const { test} = require('@playwright/test')
-import { Loginpage } from '../pages/Loginpage';
-import { Projectpage } from '../pages/Projectpage';
-import { Homepage } from '../pages/Homepage';
-import { Surveypage } from '../pages/Surveypage';
+import { Loginpage } from '../pages/LoginPage';
+import { Projectpage } from '../pages/ProjectPage';
+import { Homepage } from '../pages/HomePage';
+import { Surveypage } from '../pages/SurveyPage';
+import { createSingleSelectQuestion } from '../pages/SingleSelectQuestion';
+import { createMultiSelectQuestion } from '../pages/MultiSelectQuestion';
+import { createGridQuestion } from '../pages/GridQuestion'
+import { createMessageQuestion } from '../pages/MessageQuestion';
+import { createRankingQuestion } from '../pages/RankingQuestion';
+import {createGroupQuestion, createSubGroupQuestion} from '../pages/GroupQuestion'
+import {createOpenEndedQuestion} from '../pages/OpenEndedQuestion'
+import { addSurveyQuestionErrorMock } from '../pages/AddSurveyQuestionMockErrors';
 
 test.beforeEach('Login And Navigate To Home Page',async({page})=>{
     const login = new Loginpage(page)
@@ -25,16 +33,16 @@ test('Survey Questionnaire Creation flow', async ({ page }) => {
     const question = new Surveypage(page);
     await question.navigateToEditQuestionnairePage()
     // Creates questions
-    await question.createSingleSelectQuestion();
-    await question.createMultiSelectQuestion();
-    await question.createOpenEndedQuestion()
-    await question.createGridQuestion()
-    await question.createMessageQuestion()
-    await question.createRankingQuestion()
-    await question.createGroupQuestion()
-    await question.createSubGroupQuestion()
+    await createSingleSelectQuestion(page);
+    await createMultiSelectQuestion(page);
+    await createOpenEndedQuestion(page)
+    await createGridQuestion(page)
+    await createMessageQuestion(page)
+    await createRankingQuestion(page)
+    await createGroupQuestion(page)
+    await createSubGroupQuestion(page)
     await question.validateErrorsInQuestionnairePage()
-    await question.addSurveyQuestionErrorMock();
+    await addSurveyQuestionErrorMock(page);
     // Navigating back to the home page
     await login.navigateToHomePage()
     // Archiveing a project

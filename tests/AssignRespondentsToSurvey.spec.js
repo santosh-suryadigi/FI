@@ -1,6 +1,6 @@
 const { test } = require("@playwright/test");
 import { Utils } from "../pages/Utils";
-import { RespondentPage } from "../pages/Respondentpage";
+import { RespondentPage } from "../pages/RespondentPage";
 
 test.setTimeout(60000);
 test("Assign All The Respondents", async ({ page }) => {

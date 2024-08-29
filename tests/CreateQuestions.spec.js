@@ -1,8 +1,8 @@
 const { test } = require("@playwright/test");
-import { Loginpage } from "../pages/Loginpage";
-import { Projectpage } from "../pages/Projectpage";
-import { Homepage } from "../pages/Homepage";
-import { Surveypage } from "../pages/Surveypage";
+import { Loginpage } from "../pages/LoginPage";
+import { Projectpage } from "../pages/ProjectPage";
+import { Homepage } from "../pages/HomePage";
+import { Surveypage } from "../pages/SurveyPage";
 test.beforeEach(
   "Login & Navigate To Survey Questionnaire Page ",
   async ({ page }) => {
@@ -22,33 +22,6 @@ test.beforeEach(
 
 test("Create Question", async ({ page }) => {
   const question = new Surveypage(page);
-
-  // await question.validateErrorsInQuestionnairePage()
-
-  await question.addSurveyQuestionErrorMock();
-  // await question.createOpenEndedQuestion()
-  // await question.createRankingQuestion()
-  // await question.createGroupQuestion()
-  // await question.createGridQuestion()
-
+  await question.createGridQuestion()
 });
-// test("Create 4 Question", async ({ page }) => {
-//   const question = new Surveypage(page);
-//   await question.createSingleSelectQuestion();
-  // await question.createMultiSelectQuestion();
-  // await question.createOpenEndedQuestion()
-  // await question.createGridQuestion()
 
-// });
-
-// test('Create A Multi Select Question', async ({ page }) => {
-//     const question= new Surveypage(page)
-//     await question.createMultiSelectQuestion()
-
-// });
-
-// test('Create An Open Ended Question', async ({ page }) => {
-//     const question= new Surveypage(page)
-//     await question.createOpenEndedQuestion()
-
-// });
