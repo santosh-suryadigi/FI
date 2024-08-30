@@ -44,8 +44,12 @@ module.exports = defineConfig({
       name: 'chromium',
       use: { 
       ...devices['Desktop Chrome'],
-      viewport: { width: 1536, height: 730 }// Set the viewport size
-      }
+      viewport: { width: 1536, height: 730 },
+      headless: false, // Use the standard headless mode
+      launchOptions:{
+
+      args: [`--headless=new`] // Enable the new Chromium headless mode
+      }}
     },
 
     // {
