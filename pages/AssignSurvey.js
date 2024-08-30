@@ -106,7 +106,6 @@ export class AssignSurvey {
   }
 
   async assignClosedSurvey() {
-    // await this.page.locator('td > .MuiStack-root').first().click();
     for (let i = 2; i <= 4; i++) {
       await this.page
         .locator(`tr:nth-child(${i}) > td > .MuiStack-root`)
@@ -123,7 +122,6 @@ export class AssignSurvey {
   }
 
   async assignSurveyWithNoQuestions() {
-    // await this.page.locator('td > .MuiStack-root').first().click();
     for (let i = 2; i <= 4; i++) {
       await this.page
         .locator(`tr:nth-child(${i}) > td > .MuiStack-root`)

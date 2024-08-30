@@ -1,4 +1,3 @@
-// Visual Testing
 import { test } from "@playwright/test";
 import { Loginpage } from "../pages/LoginPage";
 import { resetViewPort, setViewPort } from "./utils/viewPortScreenShotUtils";

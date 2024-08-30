@@ -30,8 +30,6 @@ export class Homepage {
   }
 
   async archiveProject(projectname) {
-    
-    // await this.page.locator(`//tr[td[contains(.,'Demo Project 53')]]//td[6]//button[2]`).click();
     await this.page
       .locator(" //tbody/tr[1]/td[6]/div[1]/div[1]/button[1]")
       .click();

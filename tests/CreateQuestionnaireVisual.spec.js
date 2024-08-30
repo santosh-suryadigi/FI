@@ -9,8 +9,6 @@ test("Example Test", async ({ page }) => {
   const login = new Loginpage(page);
   await login.navigateToLoginPage();
   await login.login();
-//   await scrollFullPage(page);
-
   const home= new Homepage(page)
   await home.openExistingProject('Demo Project 105')
   const project = new Projectpage(page)
