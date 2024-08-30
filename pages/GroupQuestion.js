@@ -1,6 +1,6 @@
 const { expect } = require("@playwright/test");
 import { resetViewPort, setViewPort } from "../tests/utils/viewPortScreenShotUtils"
-import { questionFieldsCharacterLimit } from "./AddSurveyQuestionCommonUtils";
+import { checkQuestionFieldsCharacterLimit, validateCommonUIElements } from "./AddSurveyQuestionCommonUtils";
 
 export async function createGroupQuestion(page){
     await expect(
@@ -9,26 +9,10 @@ export async function createGroupQuestion(page){
     await page.click("//button[@name='addNewQuestion']");
     await expect(page.locator("//div[@role='dialog']")).toBeVisible();
     await page.getByRole('button', { name: 'Group' }).click();
-    await expect(page.getByRole('button', { name: 'Manage' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Manage' })).toBeEnabled();
-    await expect(page.getByRole('button', { name: 'Preview Survey' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Preview Survey' })).toBeEnabled();
     await setViewPort(page, "div[class='MuiStack-root css-3j596c'] div[class='MuiStack-root css-o0o90z']") 
     await expect(page.locator('.css-3j596c')).toHaveScreenshot('Group_question.png',{fullPage: true,maxDiffPixelRatio:0.05});
     await resetViewPort(page)
-    await expect(page.locator('button[name="manageUsers"]')).toBeVisible();
-    await expect(page.locator("#root")).toContainText("Question");
-    await expect(page.locator("#root")).toContainText(
-      "Question Description"
-    );
-    await expect(
-      page
-        .locator(
-          "div:nth-child(2) > div > div > div > div:nth-child(2) > div > div > .MuiFormControl-root > .MuiInputBase-root"
-        )
-        .first()
-    ).toBeVisible();
-    await expect(page.getByRole("textbox").nth(2)).toBeVisible();
+    await validateCommonUIElements(page)
     await expect(page.locator('#root')).toContainText('Questions Customisation');
     await expect(page.locator('#root')).toContainText('There are no questions added yet to this group.');
     await expect(page.getByText("Question Attributes")).toBeVisible();
@@ -44,7 +28,7 @@ export async function createGroupQuestion(page){
     await expect(
       page.locator("(//input[@type='checkbox'])[2]")
     ).toBeChecked();
-    await questionFieldsCharacterLimit(page)
+    await checkQuestionFieldsCharacterLimit(page)
     await page.getByPlaceholder('Enter question', { exact: true }).fill('Group Question');
     await expect(page.getByRole("button", { name: "Save" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Save" })).toBeEnabled();

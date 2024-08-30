@@ -1,6 +1,7 @@
 const { expect } = require("@playwright/test");
 
-export async function reset(page){
+const maxLimithelpertext = "(//p[normalize-space()='128/128'])"
+export async function resetQuestion(page){
     await page.getByRole('button', { name: 'Reset', exact: true }).click();
     await expect(page.getByRole('heading', { name: 'Reset Confirmation' })).toBeVisible();
     await expect(page.getByLabel('Reset Confirmation')).toContainText('Are you sure you want to reset? Once the reset is done, the data cannot be retrieved back.');
@@ -9,7 +10,7 @@ export async function reset(page){
     await page.getByRole('button', { name: 'Reset' }).click();
   }
 
-export async function questionFieldsCharacterLimit(page){
+export async function checkQuestionFieldsCharacterLimit(page){
   await page.getByPlaceholder('Enter question code').fill('Q11111111111111111111111111111111111111111111111111111111111112');
   await expect(page.locator("(//p[normalize-space()='63/64'])")).toBeVisible();
   await page.keyboard.down('Control');
@@ -19,27 +20,27 @@ export async function questionFieldsCharacterLimit(page){
   await expect(page.locator("(//p[normalize-space()='511/512'])")).toBeVisible();
 }
 
-export async function optionFieldsCharacterlimit(page){
+export async function checkOptionFieldsCharacterLimit(page){
   await page.getByPlaceholder('Enter option').first().fill('Not at all willingTell more abut the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about th');
   await expect(page.locator("(//p[normalize-space()='511/512'])").nth(1)).toBeVisible();
   await page.getByPlaceholder('Enter code').first().fill('Not at all willingTell more abou the compan Tell more about the');
   await expect(page.locator("(//p[normalize-space()='63/64'])")).toBeVisible();
 }
-export async function entryFieldsCharacterLimit(page){
+export async function checkEntryFieldsCharacterLimit(page){
   await page.getByPlaceholder('Enter title for the field').first().fill('Field Entry 1 Fi1eld Entry 1Field Entry 1Field Entry 1Field Entry 1Field Entry 1Field Entry 1Field Entry 1Field Entry 1Field Ent');
-  await expect(page.locator("(//p[normalize-space()='128/128'])")).toBeVisible();
+  await expect(page.locator(maxLimithelpertext)).toBeVisible();
   await page.getByPlaceholder('Enter hint for the field').first().fill('Field Entry 1 Field Entry 1Field Entry 1Field Entry 1Field Entry 1Field Entry 1Field Entry 1Field Entry 1Field Entry 1Field Entr');
-  await expect(page.locator("(//p[normalize-space()='128/128'])").nth(1)).toBeVisible();
+  await expect(page.locator(maxLimithelpertext).nth(1)).toBeVisible();
   await page.getByPlaceholder('Enter code').first().fill('Field Entry 1 Field Entry 1Field Entry 1Field Entry 1Field Entry 1Field Entry 1Field Entry 1Field Entry 1Field Entry 1Field Entr');
   await expect(page.locator("(//p[normalize-space()='64/64'])")).toBeVisible();
 }
-export async function messageFieldsCharacterLimit(page){
+export async function checkMessageFieldsCharacterLimit(page){
   await page.getByPlaceholder('Enter question code').fill('Q111111111111111111111111111111111111111111111111111111111111111');
   await expect(page.locator("(//p[normalize-space()='63/64'])")).toBeVisible();
   await page.getByPlaceholder('Enter message', { exact: true }).fill('Tell mre about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell mor');
   await expect(page.locator("(//p[normalize-space()='511/512'])")).toBeVisible();
 }
-export async function maxNoOfOptions(page){
+export async function checkMaxNoOfOptions(page){
   await page.click("//button[@name='addNewQuestion']");
   await page.getByRole("button", { name: "Single Select" }).click();
   await page.locator('div:nth-child(4) > button').first().click({
@@ -56,3 +57,23 @@ export async function maxNoOfOptions(page){
   await page.reload()
   await page.waitForSelector("//button[@name='addNewQuestion']")
   }
+
+export async function validateCommonUIElements(page){
+  await expect(page.getByRole('button', { name: 'Manage' })).toBeEnabled();
+  await expect(page.getByRole('button', { name: 'Preview Survey' })).toBeEnabled();
+  await expect(page.locator('button[name="manageUsers"]')).toBeEnabled();   
+  await expect(page.locator("#root")).toContainText("Basic Information");
+  await expect(page.locator("#root")).toContainText("Question Code *");
+  await expect(page.locator("#root")).toContainText("Question");
+  await expect(page.locator("#root")).toContainText(
+    "Question Description"
+  );
+  await expect(
+    page
+      .locator(
+        "div:nth-child(2) > div > div > div > div:nth-child(2) > div > div > .MuiFormControl-root > .MuiInputBase-root"
+      )
+      .first()
+  ).toBeVisible();
+  await expect(page.getByRole("textbox").nth(2)).toBeVisible();
+}

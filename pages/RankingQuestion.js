@@ -1,7 +1,7 @@
 const { expect } = require("@playwright/test");
 import { resetViewPort, setViewPort } from "../tests/utils/viewPortScreenShotUtils"
 import { addOptions } from "./MultiSelectQuestion";
-import { optionFieldsCharacterlimit, questionFieldsCharacterLimit, reset } from "./AddSurveyQuestionCommonUtils";
+import { checkOptionFieldsCharacterLimit, checkQuestionFieldsCharacterLimit, resetQuestion, validateCommonUIElements } from "./AddSurveyQuestionCommonUtils";
 
 export async function createRankingQuestion(page) {
     await expect(
@@ -13,21 +13,7 @@ export async function createRankingQuestion(page) {
     await setViewPort(page, "div[class='MuiStack-root css-3j596c'] div[class='MuiStack-root css-o0o90z']") 
     await expect(page.locator('.css-3j596c')).toHaveScreenshot('Ranking_question.png',{fullPage: true,maxDiffPixelRatio:0.05});
     await resetViewPort(page)
-    await expect(page.getByRole('button', { name: 'Manage' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Preview Survey' })).toBeVisible();
-    await expect(page.locator('button[name="manageUsers"]')).toBeVisible();
-    await expect(page.locator("#root")).toContainText("Question");
-    await expect(page.locator("#root")).toContainText(
-      "Question Description"
-    );
-    await expect(
-      page
-        .locator(
-          "div:nth-child(2) > div > div > div > div:nth-child(2) > div > div > .MuiFormControl-root > .MuiInputBase-root"
-        )
-        .first()
-    ).toBeVisible();
-    await expect(page.getByRole("textbox").nth(2)).toBeVisible();
+    await validateCommonUIElements(page)
     await expect(page.getByText("Choice Customisation")).toBeVisible();
     await page.getByPlaceholder("Enter question", { exact: true }).click();
     await expect(page.getByPlaceholder("Enter code")).toBeVisible();
@@ -54,8 +40,8 @@ export async function createRankingQuestion(page) {
     await expect(page.getByText("Max. Selection")).toBeVisible();
     await expect(page.locator('button[name="plusButton"]')).toBeVisible();
     await expect(page.locator('input[name="inputField"]')).toBeVisible();
-    await questionFieldsCharacterLimit(page)
-    await optionFieldsCharacterlimit(page)
+    await checkQuestionFieldsCharacterLimit(page)
+    await checkOptionFieldsCharacterLimit(page)
     await page
       .getByPlaceholder("Enter question", { exact: true })
       .fill("What is the preferred mode of transportation?");
@@ -69,7 +55,7 @@ export async function createRankingQuestion(page) {
     ).toBeVisible();
     await page.locator('button[name="moveUpButton"]').nth(3).click();
     await page.locator('button[name="moveDownButton"]').nth(2).click();
-    await reset(page)
+    await resetQuestion(page)
     await addOptions(page)
     await page.locator('button[name="plusButton"]').click();
     await page.getByRole('button', { name: 'Save' }).click();

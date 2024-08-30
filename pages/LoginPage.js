@@ -29,7 +29,7 @@ export class Loginpage {
   }
   async navigateToHomePage() {
     await this.page.goto(this.homeurl);
-    await this.page.waitForSelector("//p[normalize-space()='Projects']");
+    await this.page.waitForSelector("//p[contains(text(),'Active Projects')]");
   }
   async validateLoginPageUI() {
     await expect(this.page.getByText("Email")).toBeVisible();

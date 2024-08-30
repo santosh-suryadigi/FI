@@ -1,6 +1,6 @@
 const { expect } = require("@playwright/test");
 import { resetViewPort, setViewPort } from "../tests/utils/viewPortScreenShotUtils"
-import { optionFieldsCharacterlimit, questionFieldsCharacterLimit, reset } from "./AddSurveyQuestionCommonUtils";
+import { checkOptionFieldsCharacterLimit, checkQuestionFieldsCharacterLimit, resetQuestion } from "./AddSurveyQuestionCommonUtils";
 
 export async function createSingleSelectQuestion(page) {
   await expect(
@@ -31,9 +31,9 @@ export async function createSingleSelectQuestion(page) {
   await setViewPort(page, "div[class='MuiStack-root css-3j596c'] div[class='MuiStack-root css-o0o90z']") 
   await expect(page.locator('.css-3j596c')).toHaveScreenshot('Single_select_question.png',{fullPage: true,maxDiffPixelRatio:0.05});
   await resetViewPort(page)
-  await expect(page.getByRole('button', { name: 'Manage' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Preview Survey' })).toBeVisible();
-  await expect(page.locator('button[name="manageUsers"]')).toBeVisible();    
+  await expect(page.locator('button[name="manageUsers"]')).toBeEnabled();   
+  await expect(page.locator("#root")).toContainText("Basic Information");
+  await expect(page.locator("#root")).toContainText("Question Code *");
   await expect(page.locator("#root")).toContainText("Question");
   await expect(page.locator("#root")).toContainText(
     "Question Description"
@@ -75,8 +75,8 @@ export async function createSingleSelectQuestion(page) {
   await expect(
     page.locator("(//input[@type='checkbox'])[3]")
   ).toBeChecked();
-  await questionFieldsCharacterLimit(page)
-  await optionFieldsCharacterlimit(page)
+  await checkQuestionFieldsCharacterLimit(page)
+  await checkOptionFieldsCharacterLimit(page)
   await page
     .getByPlaceholder("Enter question", { exact: true })
     .fill("Tell more about the company");
@@ -96,7 +96,7 @@ export async function createSingleSelectQuestion(page) {
   ).toBeVisible();
   await page.locator('button[name="moveUpButton"]').nth(4).click();
   await page.locator('button[name="moveDownButton"]').nth(3).click();
-  await reset(page)
+  await resetQuestion(page)
   await choosePreset(page)
   await page.locator('button[name="deleteButton"]').nth(4).click();
   await page.locator('button[name="addButton"]').nth(3).click();
@@ -147,4 +147,3 @@ async function choosePreset(page){
     .toBeEnabled();
   await page.getByRole("button", { name: "Choose Preset" }).click();
 }
-

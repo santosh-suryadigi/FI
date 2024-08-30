@@ -29,7 +29,6 @@ export class RespondentPage {
         .getByRole("heading", { name: "Upload Respondent CSV" })
         .getByRole("paragraph")
     ).toBeVisible();
-    // await this.page.getByRole('dialog').getByText('Browse').click();
     await this.page
       .getByRole("dialog", { name: "Upload Respondent CSV" })
       .locator("#input-file-upload")
@@ -166,3 +165,4 @@ export class RespondentPage {
     }
   }
 }
+

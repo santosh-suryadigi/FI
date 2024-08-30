@@ -1,6 +1,6 @@
 const { expect } = require("@playwright/test");
 import { resetViewPort, setViewPort } from "../tests/utils/viewPortScreenShotUtils"
-import { entryFieldsCharacterLimit, questionFieldsCharacterLimit, reset } from "./AddSurveyQuestionCommonUtils";
+import { checkEntryFieldsCharacterLimit, checkQuestionFieldsCharacterLimit, resetQuestion, validateCommonUIElements } from "./AddSurveyQuestionCommonUtils";
 
 export async function createOpenEndedQuestion(page) {
     await expect(
@@ -12,21 +12,7 @@ export async function createOpenEndedQuestion(page) {
     await setViewPort(page, "div[class='MuiStack-root css-3j596c'] div[class='MuiStack-root css-o0o90z']") 
     await expect(page.locator('.css-3j596c')).toHaveScreenshot('Open_ended_question.png',{fullPage: true,maxDiffPixelRatio:0.05});
     await resetViewPort(page)
-    await expect(page.getByRole('button', { name: 'Manage' })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Preview Survey' })).toBeVisible();
-    await expect(page.locator('button[name="manageUsers"]')).toBeVisible();    
-    await expect(page.locator("#root")).toContainText("Question");
-    await expect(page.locator("#root")).toContainText(
-      "Question Description"
-    );
-    await expect(
-      page
-        .locator(
-          "div:nth-child(2) > div > div > div > div:nth-child(2) > div > div > .MuiFormControl-root > .MuiInputBase-root"
-        )
-        .first()
-    ).toBeVisible();
-    await expect(page.getByRole("textbox").nth(2)).toBeVisible();
+    await validateCommonUIElements(page)
     await expect(
       page.getByText("Open Ended Field Customisation")
     ).toBeVisible();
@@ -57,15 +43,15 @@ export async function createOpenEndedQuestion(page) {
     await expect(
       page.locator("(//input[@type='checkbox'])[3]")
     ).not.toBeChecked();
-    await questionFieldsCharacterLimit(page)
-    await entryFieldsCharacterLimit(page)
+    await checkQuestionFieldsCharacterLimit(page)
+    await checkEntryFieldsCharacterLimit(page)
     await page
       .getByPlaceholder("Enter question", { exact: true })
       .fill("Please enter your answers in the below fields");
     await addEntryFields(page)
     await page.locator('button[name="moveUpButton"]').nth(2).click();
     await page.locator('button[name="moveDownButton"]').nth(1).click();
-    await reset(page)
+    await resetQuestion(page)
     await addEntryFields(page)
     await expect(page.getByRole("button", { name: "Save" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Save" })).toBeEnabled();

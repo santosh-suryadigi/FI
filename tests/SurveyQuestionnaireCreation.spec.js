@@ -10,8 +10,8 @@ import { createMessageQuestion } from '../pages/MessageQuestion';
 import { createRankingQuestion } from '../pages/RankingQuestion';
 import {createGroupQuestion, createSubGroupQuestion} from '../pages/GroupQuestion'
 import {createOpenEndedQuestion} from '../pages/OpenEndedQuestion'
-import { addSurveyQuestionErrorMock } from '../pages/AddSurveyQuestionMockErrors';
-import { maxNoOfOptions } from '../pages/AddSurveyQuestionCommonUtils';
+import { addSurveyQuestionErrorMock } from '../Mock/AddSurveyQuestionMockErrors';
+import { checkMaxNoOfOptions } from '../pages/AddSurveyQuestionCommonUtils';
 
 test.beforeEach('Login And Navigate To Home Page',async({page})=>{
     const login = new Loginpage(page)
@@ -45,7 +45,7 @@ test('Survey Questionnaire Creation flow', async ({ page }) => {
     // Validates the edgecases like refreshing the page, clicking on other questions while creating a question
     await question.edgeCases()
     // Validates the maximum no of options and entry fields for single-select and open ended question
-    await maxNoOfOptions(page)
+    await checkMaxNoOfOptions(page)
     await question.validateErrorsInQuestionnairePage()
     await addSurveyQuestionErrorMock(page);
     // Navigating back to the home page
@@ -53,4 +53,3 @@ test('Survey Questionnaire Creation flow', async ({ page }) => {
     // Archiveing a project
     await project.archiveProject(projectName)
 });
-

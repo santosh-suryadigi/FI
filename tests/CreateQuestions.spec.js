@@ -26,4 +26,3 @@ test("Create Question", async ({ page }) => {
   const surveyquestion = new Surveypage(page);
   await createSingleSelectQuestion(page)
 });
-

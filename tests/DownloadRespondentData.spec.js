@@ -8,7 +8,6 @@ test.beforeEach('Login & Navigate To Respondent Page', async ({ page }) => {
     utils.loginAndNavigateToRespondentTab("Demo Project 64", page);
 })
 
-
 test('Download The Respondent CSV File', async ({ page }) => {
     const respondent = new RespondentPage(page)
     // Downloads the respondent csv file
