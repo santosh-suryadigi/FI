@@ -44,7 +44,7 @@ test('Survey Questionnaire Creation flow', async ({ page }) => {
     await createSubGroupQuestion(page)
     // Validates the edgecases like refreshing the page, clicking on other questions while creating a question
     await question.edgeCases()
-    // Vlaidates the maximum no of options and entry fields for single-select and open ended question
+    // Validates the maximum no of options and entry fields for single-select and open ended question
     await maxNoOfOptions(page)
     await question.validateErrorsInQuestionnairePage()
     await addSurveyQuestionErrorMock(page);
