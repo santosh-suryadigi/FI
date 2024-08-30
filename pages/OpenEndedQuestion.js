@@ -1,5 +1,6 @@
 const { expect } = require("@playwright/test");
 import { resetViewPort, setViewPort } from "../tests/utils/viewPortScreenShotUtils"
+import { entryFieldsCharacterLimit, questionFieldsCharacterLimit, reset } from "./AddSurveyQuestionCommonUtils";
 
 export async function createOpenEndedQuestion(page) {
     await expect(
@@ -56,34 +57,16 @@ export async function createOpenEndedQuestion(page) {
     await expect(
       page.locator("(//input[@type='checkbox'])[3]")
     ).not.toBeChecked();
+    await questionFieldsCharacterLimit(page)
+    await entryFieldsCharacterLimit(page)
     await page
       .getByPlaceholder("Enter question", { exact: true })
       .fill("Please enter your answers in the below fields");
-    await page.locator('button[name="addButton"]').click();
-    await expect(
-      page.locator('button[name="deleteButton"]').first()
-    ).toBeVisible();
-    await expect(page.getByText("ENTRY 2")).toBeVisible();
-    await page.locator('button[name="addButton"]').first().click();
-    await page
-      .getByPlaceholder("Enter title for the field")
-      .first()
-      .fill("Field Entry 1");
-    await page.getByPlaceholder("Enter code").first().fill("1");
-    await page
-      .getByPlaceholder("Enter title for the field")
-      .nth(1)
-      .fill("Field Entry 2");
-    await page.getByPlaceholder("Enter code").nth(1).fill("2");
-    await page
-      .getByPlaceholder("Enter title for the field")
-      .nth(2)
-      .fill("Field Entry 3");
-    await page.getByPlaceholder("Enter code").nth(2).fill("3");
-    await page.locator('button[name="deleteButton"]').nth(2).click();
-    await page.locator('button[name="addButton"]').nth(1).click();
-    await page.getByPlaceholder('Enter title for the field').nth(2).fill('Field Entry 3');
-    await page.getByPlaceholder('Enter code').nth(2).fill('3');
+    await addEntryFields(page)
+    await page.locator('button[name="moveUpButton"]').nth(2).click();
+    await page.locator('button[name="moveDownButton"]').nth(1).click();
+    await reset(page)
+    await addEntryFields(page)
     await expect(page.getByRole("button", { name: "Save" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Save" })).toBeEnabled();
     await page.getByRole("button", { name: "Save" }).click();
@@ -113,5 +96,32 @@ export async function createOpenEndedQuestion(page) {
     await expect(page.getByPlaceholder('Enter code').nth(1)).toHaveValue('2');
     await expect(page.getByPlaceholder('Enter title for the field').nth(2)).toHaveValue('Field Entry 3');
     await expect(page.getByPlaceholder('Enter code').nth(2)).toHaveValue('3');
-
   }
+
+async function addEntryFields(page){
+  await page.locator('button[name="addButton"]').click();
+  await expect(
+    page.locator('button[name="deleteButton"]').first()
+  ).toBeVisible();
+  await expect(page.getByText("ENTRY 2")).toBeVisible();
+  await page.locator('button[name="addButton"]').first().click();
+  await page
+    .getByPlaceholder("Enter title for the field")
+    .first()
+    .fill("Field Entry 1");
+  await page.getByPlaceholder("Enter code").first().fill("1");
+  await page
+    .getByPlaceholder("Enter title for the field")
+    .nth(1)
+    .fill("Field Entry 2");
+  await page.getByPlaceholder("Enter code").nth(1).fill("2");
+  await page
+    .getByPlaceholder("Enter title for the field")
+    .nth(2)
+    .fill("Field Entry 3");
+  await page.getByPlaceholder("Enter code").nth(2).fill("3");
+  await page.locator('button[name="deleteButton"]').nth(2).click();
+  await page.locator('button[name="addButton"]').nth(1).click();
+  await page.getByPlaceholder('Enter title for the field').nth(2).fill('Field Entry 3');
+  await page.getByPlaceholder('Enter code').nth(2).fill('3');
+}

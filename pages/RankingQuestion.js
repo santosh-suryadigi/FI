@@ -1,5 +1,8 @@
 const { expect } = require("@playwright/test");
 import { resetViewPort, setViewPort } from "../tests/utils/viewPortScreenShotUtils"
+import { addOptions } from "./MultiSelectQuestion";
+import { optionFieldsCharacterlimit, questionFieldsCharacterLimit, reset } from "./AddSurveyQuestionCommonUtils";
+
 export async function createRankingQuestion(page) {
     await expect(
       page.getByRole("button", { name: "Add New Question" })
@@ -51,6 +54,8 @@ export async function createRankingQuestion(page) {
     await expect(page.getByText("Max. Selection")).toBeVisible();
     await expect(page.locator('button[name="plusButton"]')).toBeVisible();
     await expect(page.locator('input[name="inputField"]')).toBeVisible();
+    await questionFieldsCharacterLimit(page)
+    await optionFieldsCharacterlimit(page)
     await page
       .getByPlaceholder("Enter question", { exact: true })
       .fill("What is the preferred mode of transportation?");
@@ -58,25 +63,18 @@ export async function createRankingQuestion(page) {
     await page
       .locator(".ProseMirror")
       .fill("Please answer the above question.");
-    await page.locator('button[name="addButton"]').click();
-    await expect(page.locator('button[name="minusButton"]')).toBeVisible();
-    await page.locator('button[name="addButton"]').first().click();
-    await page.locator('button[name="addButton"]').first().click();
-    await page.getByPlaceholder("Enter option").first().fill("Car");
-    await page.getByPlaceholder("Enter code").first().fill("1");
-    await page.getByPlaceholder("Enter option").nth(1).fill("Bike");
-    await page.getByPlaceholder("Enter code").nth(1).fill("2");
-    await page.getByPlaceholder("Enter option").nth(2).fill("Bus");
-    await page.getByPlaceholder("Enter code").nth(2).fill("3");
-    await page.getByPlaceholder("Enter option").nth(3).fill("Metro");
-    await page.getByPlaceholder("Enter code").nth(3).fill("4");
-    await page.locator('button[name="deleteButton"]').nth(3).click();
-    await page.locator('button[name="addButton"]').nth(2).click();
-    await page.getByPlaceholder('Enter option').nth(3).fill('Metro');
-    await page.getByPlaceholder('Enter code').nth(3).fill('4');
+    await addOptions(page)
     await expect(
       page.getByRole("button", { name: "Reset", exact: true })
     ).toBeVisible();
+    await page.locator('button[name="moveUpButton"]').nth(3).click();
+    await page.locator('button[name="moveDownButton"]').nth(2).click();
+    await reset(page)
+    await addOptions(page)
+    await page.locator('button[name="plusButton"]').click();
+    await page.getByRole('button', { name: 'Save' }).click();
+    await expect(page.locator('#root')).toContainText('Please ensure that the max. selection does not exceed the total number of options.');
+    await page.locator('button[name="minusButton"]').click();
     await expect(page.getByRole("button", { name: "Save" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Save" })).toBeEnabled();
     await page.getByRole("button", { name: "Save" }).click();

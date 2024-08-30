@@ -1,5 +1,6 @@
 const { expect } = require("@playwright/test");
 import { resetViewPort, setViewPort } from "../tests/utils/viewPortScreenShotUtils"
+import { questionFieldsCharacterLimit } from "./AddSurveyQuestionCommonUtils";
 
 export async function createGroupQuestion(page){
     await expect(
@@ -43,6 +44,7 @@ export async function createGroupQuestion(page){
     await expect(
       page.locator("(//input[@type='checkbox'])[2]")
     ).toBeChecked();
+    await questionFieldsCharacterLimit(page)
     await page.getByPlaceholder('Enter question', { exact: true }).fill('Group Question');
     await expect(page.getByRole("button", { name: "Save" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Save" })).toBeEnabled();

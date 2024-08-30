@@ -1,5 +1,6 @@
 const { expect } = require("@playwright/test");
 import { resetViewPort, setViewPort } from "../tests/utils/viewPortScreenShotUtils"
+import { optionFieldsCharacterlimit, questionFieldsCharacterLimit, reset } from "./AddSurveyQuestionCommonUtils";
 
 export async function createGridQuestion(page) {
     await expect(
@@ -66,16 +67,14 @@ export async function createGridQuestion(page) {
     await expect(
       page.locator("(//input[@type='checkbox'])[4]")
     ).toBeChecked();
+    await questionFieldsCharacterLimit(page)
+    await optionFieldsCharacterlimit(page)
     await page
       .getByPlaceholder("Enter question", { exact: true })
       .fill("Grid Question");
-    await page.getByPlaceholder("Enter row header").fill("Row Header");
-    await page.locator('button[name="addButton"]').click();
-    await page.getByPlaceholder("Enter code").first().fill("1");
-    await page.getByPlaceholder("Enter code").nth(1).fill("2");
-    await page.locator('button[name="deleteButton"]').nth(1).click();
-    await page.locator('button[name="addButton"]').click();
-    await page.getByPlaceholder('Enter code').nth(1).fill('2');
+    await addRowData(page)
+    await reset(page)
+    await addRowData(page)
     await expect(
       page.locator('button[name="deleteButton"]').first()
     ).toBeVisible();
@@ -110,6 +109,7 @@ export async function createGridQuestion(page) {
     await expect(
       page.getByRole("radiogroup").getByText("Open Ended")
     ).toBeVisible();
+    await page.getByPlaceholder("Enter code").first().fill("Col1");
     await page.locator('input[name="code"]').fill("1");
     await page.locator('button[name="addButton"]').first().click();
     await page.locator('button[name="addButton"]').nth(1).click();
@@ -182,4 +182,14 @@ export async function createGridQuestion(page) {
     await expect(page.getByPlaceholder('Enter row header')).toHaveValue('Row Header');
     await expect(page.getByPlaceholder('Enter code').first()).toHaveValue('1');
     await expect(page.getByPlaceholder('Enter code').nth(1)).toHaveValue('2');
+  }
+
+  async function addRowData(page){
+    await page.getByPlaceholder("Enter row header").fill("Row Header");
+    await page.locator('button[name="addButton"]').click();
+    await page.getByPlaceholder("Enter code").first().fill("1");
+    await page.getByPlaceholder("Enter code").nth(1).fill("2");
+    await page.locator('button[name="deleteButton"]').nth(1).click();
+    await page.locator('button[name="addButton"]').click();
+    await page.getByPlaceholder('Enter code').nth(1).fill('2');
   }

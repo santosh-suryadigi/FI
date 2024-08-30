@@ -1,5 +1,6 @@
 const { expect } = require("@playwright/test");
 import { resetViewPort, setViewPort } from "../tests/utils/viewPortScreenShotUtils"
+import { optionFieldsCharacterlimit, questionFieldsCharacterLimit, reset } from "./AddSurveyQuestionCommonUtils";
 
 export async function createSingleSelectQuestion(page) {
   await expect(
@@ -74,20 +75,14 @@ export async function createSingleSelectQuestion(page) {
   await expect(
     page.locator("(//input[@type='checkbox'])[3]")
   ).toBeChecked();
+  await questionFieldsCharacterLimit(page)
+  await optionFieldsCharacterlimit(page)
   await page
     .getByPlaceholder("Enter question", { exact: true })
     .fill("Tell more about the company");
   await page.getByRole("textbox").nth(2).fill("Question Description");
-  await page.getByRole("button", { name: "Choose Preset" }).click();
-  await page.click("//div[@id='Scale']");
-  await page.getByRole("option", { name: "5" }).click();
-  await page.click("//div[@id='Preset Type']");
-  await page.getByRole("option", { name: "Willingness" }).click();
-  await expect(page
-    .getByRole("button", { name: "Choose Preset" }))
-    .toBeEnabled();
-  await page.getByRole("button", { name: "Choose Preset" }).click();
-  await expect(
+  await choosePreset(page)
+    await expect(
     page.locator('button[name="addButton"]').first()
   ).toBeVisible();
   await expect(
@@ -99,6 +94,10 @@ export async function createSingleSelectQuestion(page) {
   await expect(
     page.locator('button[name="deleteButton"]').nth(1)
   ).toBeVisible();
+  await page.locator('button[name="moveUpButton"]').nth(4).click();
+  await page.locator('button[name="moveDownButton"]').nth(3).click();
+  await reset(page)
+  await choosePreset(page)
   await page.locator('button[name="deleteButton"]').nth(4).click();
   await page.locator('button[name="addButton"]').nth(3).click();
   await page.getByPlaceholder('Enter option').nth(4).fill('Extremely willing');
@@ -136,3 +135,16 @@ export async function createSingleSelectQuestion(page) {
   await expect(page.getByPlaceholder('Enter option').nth(3)).toHaveValue('Willing');
   await expect(page.getByPlaceholder('Enter option').nth(4)).toHaveValue('Extremely willing');
 }
+
+async function choosePreset(page){
+  await page.getByRole("button", { name: "Choose Preset" }).click();
+  await page.click("//div[@id='Scale']");
+  await page.getByRole("option", { name: "5" }).click();
+  await page.click("//div[@id='Preset Type']");
+  await page.getByRole("option", { name: "Willingness" }).click();
+  await expect(page
+    .getByRole("button", { name: "Choose Preset" }))
+    .toBeEnabled();
+  await page.getByRole("button", { name: "Choose Preset" }).click();
+}
+

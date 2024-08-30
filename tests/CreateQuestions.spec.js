@@ -3,6 +3,14 @@ import { Loginpage } from "../pages/LoginPage";
 import { Projectpage } from "../pages/ProjectPage";
 import { Homepage } from "../pages/HomePage";
 import { Surveypage } from "../pages/SurveyPage";
+import { createSingleSelectQuestion } from "../pages/SingleSelectQuestion";
+import { createMultiSelectQuestion } from "../pages/MultiSelectQuestion";
+import { createGridQuestion } from '../pages/GridQuestion'
+import { createMessageQuestion } from '../pages/MessageQuestion';
+import { createRankingQuestion } from '../pages/RankingQuestion';
+import {createGroupQuestion, createSubGroupQuestion} from '../pages/GroupQuestion'
+import {createOpenEndedQuestion} from '../pages/OpenEndedQuestion'
+import { addSurveyQuestionErrorMock } from '../pages/AddSurveyQuestionMockErrors';
 test.beforeEach(
   "Login & Navigate To Survey Questionnaire Page ",
   async ({ page }) => {
@@ -21,7 +29,7 @@ test.beforeEach(
 );
 
 test("Create Question", async ({ page }) => {
-  const question = new Surveypage(page);
-  await question.createGridQuestion()
+  const surveyquestion = new Surveypage(page);
+  await createSingleSelectQuestion(page)
 });
 
