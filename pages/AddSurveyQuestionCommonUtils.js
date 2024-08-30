@@ -18,12 +18,7 @@ export async function questionFieldsCharacterLimit(page){
   await page.getByPlaceholder('Enter question', { exact: true }).fill('Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell mo');
   await expect(page.locator("(//p[normalize-space()='511/512'])")).toBeVisible();
 }
-export async function messageFieldsCharacterLimit(page){
-  await page.getByPlaceholder('Enter question code').fill('Q111111111111111111111111111111111111111111111111111111111111111');
-  await expect(page.locator("(//p[normalize-space()='63/64'])")).toBeVisible();
-  await page.getByPlaceholder('Enter message', { exact: true }).fill('Tell mre about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell mor');
-  await expect(page.locator("(//p[normalize-space()='511/512'])")).toBeVisible();
-}
+
 export async function optionFieldsCharacterlimit(page){
   await page.getByPlaceholder('Enter option').first().fill('Not at all willingTell more abut the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about th');
   await expect(page.locator("(//p[normalize-space()='511/512'])").nth(1)).toBeVisible();
@@ -37,11 +32,16 @@ export async function entryFieldsCharacterLimit(page){
   await expect(page.locator("(//p[normalize-space()='128/128'])").nth(1)).toBeVisible();
   await page.getByPlaceholder('Enter code').first().fill('Field Entry 1 Field Entry 1Field Entry 1Field Entry 1Field Entry 1Field Entry 1Field Entry 1Field Entry 1Field Entry 1Field Entr');
   await expect(page.locator("(//p[normalize-space()='64/64'])")).toBeVisible();
-
+}
+export async function messageFieldsCharacterLimit(page){
+  await page.getByPlaceholder('Enter question code').fill('Q111111111111111111111111111111111111111111111111111111111111111');
+  await expect(page.locator("(//p[normalize-space()='63/64'])")).toBeVisible();
+  await page.getByPlaceholder('Enter message', { exact: true }).fill('Tell mre about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell more about the company Tell mor');
+  await expect(page.locator("(//p[normalize-space()='511/512'])")).toBeVisible();
 }
 export async function maxNoOfOptions(page){
-  await this.page.click("//button[@name='addNewQuestion']");
-  await this.page.getByRole("button", { name: "Single Select" }).click();
+  await page.click("//button[@name='addNewQuestion']");
+  await page.getByRole("button", { name: "Single Select" }).click();
   await page.locator('div:nth-child(4) > button').first().click({
     clickCount: 31
   });
@@ -53,4 +53,6 @@ export async function maxNoOfOptions(page){
     clickCount: 13
   });
   await expect(page.locator(".css-534sdt")).toHaveCount(14)
-}
+  await page.reload()
+  await page.waitForSelector("//button[@name='addNewQuestion']")
+  }

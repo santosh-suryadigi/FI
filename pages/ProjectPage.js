@@ -11,7 +11,7 @@ export class Projectpage {
     await this.page.getByRole("button", { name: "Create Survey" }).click();
     await expect(this.page.locator("#root")).toContainText(surveyname);
     await this.page.waitForTimeout(1000);
-    await expect(this.page).toHaveScreenshot('Create_questionnaire_page.png',{maxDiffPixelRatio:0.05,mask:[this.page.locator("body > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > div:nth-child(3) > p:nth-child(2)")]});
+    await expect(this.page).toHaveScreenshot('Create_questionnaire_page.png',{maxDiffPixelRatio:0.05,mask:[this.page.locator("//p[contains(text(),'Demo')]")]});
   }
 
   async validateProjectPageUI() {

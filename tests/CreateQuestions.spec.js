@@ -11,6 +11,7 @@ import { createRankingQuestion } from '../pages/RankingQuestion';
 import {createGroupQuestion, createSubGroupQuestion} from '../pages/GroupQuestion'
 import {createOpenEndedQuestion} from '../pages/OpenEndedQuestion'
 import { addSurveyQuestionErrorMock } from '../pages/AddSurveyQuestionMockErrors';
+import { maxNoOfOptions } from "../pages/AddSurveyQuestionCommonUtils";
 test.beforeEach(
   "Login & Navigate To Survey Questionnaire Page ",
   async ({ page }) => {
@@ -30,6 +31,7 @@ test.beforeEach(
 
 test("Create Question", async ({ page }) => {
   const surveyquestion = new Surveypage(page);
-  await createSingleSelectQuestion(page)
+  // await createSingleSelectQuestion(page)
+  await maxNoOfOptions(page)
 });
 
