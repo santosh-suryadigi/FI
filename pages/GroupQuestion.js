@@ -33,7 +33,7 @@ export async function createGroupQuestion(page){
     await expect(page.getByRole("button", { name: "Save" })).toBeVisible();
     await expect(page.getByRole("button", { name: "Save" })).toBeEnabled();
     await page.getByRole("button", { name: "Save" }).click();
-    await expect(page.locator('.css-uhb5lp')).toHaveScreenshot('Success_dialog_box.png',{maxDiffPixelRatio:0.05});
+    await expect(page.locator("//div[@role='dialog']")).toHaveScreenshot('Success_dialog_box.png',{maxDiffPixelRatio:0.05});
     await page.getByRole("button", { name: "Done" }).click();
     await expect(
       page.getByRole("button", { name: "Delete" })

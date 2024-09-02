@@ -36,7 +36,7 @@ export async function createMessageQuestion(page){
     await page.getByPlaceholder('Enter message').fill('Please read this message to proceed further');
     await expect(page.getByRole("button", { name: "Save" })).toBeEnabled();
     await page.getByRole("button", { name: "Save" }).click();
-    await expect(page.locator('.css-uhb5lp')).toHaveScreenshot('Success_dialog_box.png',{maxDiffPixelRatio:0.05});
+    await expect(page.locator("//div[@role='dialog']")).toHaveScreenshot('Success_dialog_box.png',{maxDiffPixelRatio:0.05});
     await expect(page.getByRole("heading")).toContainText("Successful");
     await expect(page.getByLabel("Successful")).toContainText(
       "The question has been saved successfully."
@@ -60,4 +60,3 @@ export async function createMessageQuestion(page){
     await expect(page.getByPlaceholder('Enter message')).toHaveValue('Please read this message to proceed further');
 
   }
-  

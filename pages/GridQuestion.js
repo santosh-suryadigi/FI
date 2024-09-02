@@ -48,7 +48,7 @@ export async function createGridQuestion(page) {
   await addColumnDataAndValidateUI(page);
   await expect(page.getByRole("button", { name: "Save" })).toBeEnabled();
   await page.getByRole("button", { name: "Save" }).click();
-  await expect(page.locator(".css-uhb5lp")).toHaveScreenshot(
+  await expect(page.locator("//div[@role='dialog']")).toHaveScreenshot(
     "Success_dialog_box.png",
     { maxDiffPixelRatio: 0.05 }
   );

@@ -68,7 +68,7 @@ export class Surveypage {
   async edgeCases(){
     await this.page.getByPlaceholder('Enter question code').fill('Q9123');
     await this.page.locator("//p[normalize-space()='Q1']").click();
-    await expect(this.page.locator('.css-uhb5lp')).toHaveScreenshot('Unsaved_Changes_popup.png',{maxDiffPixelRatio:0.05});
+    await expect(this.page.locator("//div[@role='dialog']")).toHaveScreenshot('Unsaved_Changes_popup.png',{maxDiffPixelRatio:0.05});
     await expect(this.page.getByText('You Have Unsaved Changes')).toBeVisible();
     await expect(this.page.getByLabel('You Have Unsaved Changes')).toContainText('Are you sure you want to proceed? Once you select another question, the unsaved changes cannot be retrieved back.');
     await expect(this.page.getByRole('button', { name: 'Cancel' })).toBeVisible();
@@ -76,7 +76,7 @@ export class Surveypage {
     await this.page.getByRole('button', { name: 'Proceed' }).click();
     await this.page.getByPlaceholder('Enter question code').fill('Q9123');
     await this.page.click("//button[@name='addNewQuestion']");
-    await expect(this.page.locator('.css-uhb5lp')).toHaveScreenshot('Unsaved_Changes_popup.png',{maxDiffPixelRatio:0.05});
+    await expect(this.page.locator("//div[@role='dialog']")).toHaveScreenshot('Unsaved_Changes_popup.png',{maxDiffPixelRatio:0.05});
     await expect(this.page.getByText('You Have Unsaved Changes')).toBeVisible();
     await expect(this.page.getByLabel('You Have Unsaved Changes')).toContainText('Are you sure you want to proceed? Once you select another question, the unsaved changes cannot be retrieved back.');
     await expect(this.page.getByRole('button', { name: 'Cancel' })).toBeVisible();

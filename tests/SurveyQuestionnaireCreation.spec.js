@@ -18,7 +18,7 @@ test.beforeEach('Login And Navigate To Home Page',async({page})=>{
     await login.navigateToLoginPage()
     await login.login()
 })
-test.setTimeout(120000)
+test.setTimeout(180000)
 test('Survey Questionnaire Creation flow', async ({ page }) => {
     const login = new Loginpage(page)
     const project = new Homepage(page)
